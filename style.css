@@ -1,0 +1,671 @@
+/* =========================================
+   1. CORE THEME & ANIMATIONS
+   ========================================= */
+:root {
+    --void: #020000;
+    --blood: #8a0000;
+    --laser: #ff0033;
+    --gold: #ffd700;
+    --text: #ffcccc;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    background: linear-gradient(-45deg, #000000, #1a0000, #050000, #2a0000);
+    background-size: 400% 400%;
+    animation: void-breathe 15s ease infinite;
+    color: var(--text);
+    font-family: 'Prompt', sans-serif;
+    overflow-x: hidden;
+    
+    /* FADE IN/OUT SYSTEM */
+    opacity: 0; 
+    transition: opacity 0.5s ease;
+}
+
+body.loaded { opacity: 1; }
+body.fade-out-active { opacity: 0 !important; pointer-events: none; }
+
+@keyframes void-breathe {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+h1, h2, h3, .welcome-text, .section-title, .school-info {
+    font-family: 'Cinzel', serif;
+    color: var(--laser);
+    text-shadow: 0 0 10px var(--blood);
+    letter-spacing: 2px;
+}
+
+/* =========================================
+   2. BACKGROUND EFFECTS
+   ========================================= */
+.poker-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: -10; pointer-events: none; }
+.symbol { position: absolute; top: -10%; color: var(--laser); text-shadow: 0 0 10px var(--blood); opacity: 0; animation: fall linear infinite; user-select: none; }
+.s1 { left: 5%; font-size: 1.5rem; animation-duration: 7s; }
+.s2 { left: 15%; font-size: 3rem; animation-duration: 10s; animation-delay: 2s; opacity: 0.5; }
+.s3 { left: 25%; font-size: 2rem; animation-duration: 6s; animation-delay: 4s; }
+.s4 { left: 35%; font-size: 4rem; animation-duration: 12s; animation-delay: 1s; filter: blur(2px); }
+.s5 { left: 45%; font-size: 2.5rem; animation-duration: 8s; animation-delay: 3s; }
+.s6 { left: 55%; font-size: 1.8rem; animation-duration: 9s; animation-delay: 5s; }
+.s7 { left: 65%; font-size: 3.5rem; animation-duration: 11s; animation-delay: 0.5s; }
+.s8 { left: 75%; font-size: 2rem; animation-duration: 7.5s; animation-delay: 2.5s; }
+.s9 { left: 85%; font-size: 4rem; animation-duration: 13s; animation-delay: 1.5s; filter: blur(1px); }
+
+@keyframes fall { 0% { transform: translateY(-10vh) rotate(0deg); opacity: 0; } 20% { opacity: 1; } 100% { transform: translateY(110vh) rotate(360deg); opacity: 0; } }
+
+.embers { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -6; pointer-events: none; }
+.embers span { position: absolute; bottom: -50px; width: 4px; height: 4px; background: var(--laser); box-shadow: 0 0 10px var(--gold), 0 0 20px var(--laser); border-radius: 50%; opacity: 0; animation: rise 10s linear infinite; }
+.embers span:nth-child(1) { left: 10%; animation-duration: 7s; } .embers span:nth-child(2) { left: 20%; animation-duration: 12s; background: var(--gold); } .embers span:nth-child(3) { left: 50%; animation-duration: 9s; } .embers span:nth-child(4) { left: 80%; animation-duration: 14s; }
+@keyframes rise { 0% { transform: translateY(0) scale(1); opacity: 0; } 10% { opacity: 1; } 100% { transform: translateY(-120vh) scale(0); opacity: 0; } }
+
+.scanlines { position: fixed; inset: 0; pointer-events: none; z-index: -5; background: linear-gradient(to bottom, rgba(255,255,255,0) 50%, rgba(0,0,0,0.2) 50%); background-size: 100% 4px; opacity: 0.6; }
+.vignette { position: fixed; inset: 0; pointer-events: none; z-index: -4; background: radial-gradient(circle, transparent 40%, #000 130%); }
+
+/* --- 3. LANDING PAGE (HOME) - MOVED DOWN --- */
+.landing-hero {
+    min-height: 90vh; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    
+    /* CHANGE 1: Stop centering vertically */
+    justify-content: flex-start; 
+    
+    /* CHANGE 2: Push everything down by 15% of the screen height */
+    padding-top: 7vh; 
+    
+    text-align: center; 
+    padding-left: 20px; 
+    padding-right: 20px;
+    z-index: 10; 
+    position: relative;
+}
+
+/* NEW: Layered Logo Container */
+.logo-container-layered {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+/* NEW: The Big Number 2 */
+.big-number-two {
+    position: absolute;
+    font-family: 'Cinzel', serif;
+    font-size: 50rem; /* Huge size */
+    font-weight: 900;
+    color: var(--blood);
+    opacity: 0.3; /* Semi-transparent behind logo */
+    z-index: -1; /* Behind the logo image */
+    text-shadow: 0 0 30px var(--laser);
+    pointer-events: none;
+}
+
+.landing-logo {
+    width: 700px; /* Increased size significantly */
+    filter: drop-shadow(0 0 30px var(--laser));
+    animation: float 4s ease-in-out infinite;
+    z-index: 2;
+}
+@keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+
+.welcome-text { font-size: 4rem; color: #fff; text-shadow: 0 0 20px var(--laser); margin-bottom: 10px; }
+.school-info { letter-spacing: 5px; color: var(--laser); font-size: 1.2rem; }
+
+.main-menu {
+    display: flex; gap: 30px; margin-top: 50px; flex-wrap: wrap; justify-content: center;
+}
+
+.menu-card {
+    width: 280px; height: 350px;
+    background: rgba(10, 0, 0, 0.8);
+    border: 2px solid var(--laser);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-decoration: none; color: #fff;
+    border-radius: 15px; transition: 0.3s;
+    backdrop-filter: blur(5px);
+    position: relative; overflow: hidden;
+}
+
+.menu-card .icon { font-size: 5rem; margin-bottom: 20px; text-shadow: 0 0 20px var(--blood); transition: 0.3s; }
+.menu-card h2 { font-family: 'Cinzel'; font-size: 2rem; color: var(--laser); margin-bottom: 10px; transition: 0.3s; }
+.menu-card p { color: #aaa; font-size: 1rem; }
+
+.menu-card:hover { transform: translateY(-10px) scale(1.05); background: rgba(40, 0, 0, 0.9); box-shadow: 0 0 40px var(--blood); border-color: #fff; z-index: 10; }
+.menu-card:hover .icon { transform: scale(1.2); text-shadow: 0 0 40px var(--gold); }
+.menu-card:hover h2 { color: #fff; text-shadow: 0 0 20px var(--laser); }
+
+/* =========================================
+   4. MAIN PAGE CONTENT (Vision & Working)
+   ========================================= */
+.main-content-wrapper {
+    padding-bottom: 100px;
+    position: relative; z-index: 10;
+}
+.section { padding: 80px 5%; text-align: center; }
+.section-title { font-size: 2.5rem; margin-bottom: 50px; border-bottom: 2px solid var(--blood); display: inline-block; padding-bottom: 10px; }
+
+/* Work Grid (Re-added) */
+.work-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+.work-card { display: flex; flex-direction: column; align-items: center; min-height: 300px; }
+.work-card .icon { font-size: 4rem; margin-bottom: 15px; text-shadow: 0 0 20px var(--laser); }
+.work-card h3 { color: #fff; margin-bottom: 10px; font-size: 1.5rem; }
+
+/* =========================================
+   5. SHARED COMPONENTS
+   ========================================= */
+.main-content { padding: 100px 5%; max-width: 1400px; margin: 0 auto; min-height: 100vh; }
+.back-btn {
+    position: fixed; top: 30px; left: 40px;
+    font-size: 1.2rem; color: #aaa; text-decoration: none;
+    font-family: 'Cinzel'; font-weight: bold;
+    z-index: 500; transition: 0.3s;
+    background: rgba(0,0,0,0.8); padding: 10px 20px; border: 1px solid var(--laser); border-radius: 30px;
+}
+.back-btn:hover { color: #fff; background: var(--blood); box-shadow: 0 0 15px var(--laser); }
+
+.glass-frame { background: rgba(10, 0, 0, 0.7); border: 1px solid var(--blood); backdrop-filter: blur(5px); padding: 20px; border-radius: 8px; box-shadow: 0 0 15px rgba(138, 0, 0, 0.2); }
+.glow-btn { display: inline-block; padding: 15px 40px; background: var(--blood); color: #fff; text-decoration: none; border: 1px solid var(--laser); font-family: 'Cinzel'; font-weight: bold; box-shadow: 0 0 10px var(--laser); transition: 0.3s; }
+.glow-btn:hover { background: var(--laser); box-shadow: 0 0 30px var(--blood); }
+
+/* Leader Grid styles... (Keep the rest of your CSS for other pages below) */
+/* ... (The rest of the CSS for leaders, policies etc. remains the same) ... */
+/* =========================================
+   6. LEADER CARD SYSTEM (4K SHARP)
+   ========================================= */
+.leader-grid { display: flex; flex-wrap: wrap; gap: 40px; justify-content: center; perspective: 2000px; transform-style: preserve-3d; }
+.card-wrapper { width: 260px; height: 380px; position: relative; transform-style: preserve-3d; cursor: pointer; --delay: 0s; opacity: 0; animation: rotate-card 5s cubic-bezier(0.25, 1, 0.5, 1) both; animation-delay: var(--delay); transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1); }
+.card-wrapper:hover { transform: translateY(-20px) translateZ(50px) !important; z-index: 100; }
+.card-wrapper:hover .face-front img { transform: scale(1.1); }
+.card-wrapper:hover .face-front { box-shadow: 0 15px 40px var(--laser), 0 0 15px #fff; border-color: #fff; }
+.face { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 8px; animation-fill-mode: both; animation-delay: var(--delay); animation-duration: 5s; -webkit-font-smoothing: antialiased; }
+.face-front { transform: rotateY(0deg); background-color: #050000; border: 2px solid var(--laser); display: flex; flex-direction: column; align-items: center; box-shadow: 0 0 20px rgba(255, 0, 51, 0.3); padding-top: 20px; opacity: 0; animation-name: show-front; z-index: 10; transition: box-shadow 0.3s, border-color 0.3s; overflow: hidden; backface-visibility: hidden; transform-style: preserve-3d; }
+.face-front img { width: 90%; height: 65%; object-fit: cover; border-bottom: 2px solid var(--blood); margin-bottom: 15px; transition: transform 0.4s ease; transform: translateZ(1px); }
+.face-front h3 { margin: 0; font-size: 1.1rem; color: #fff; text-align: center; z-index: 20; transform: translateZ(60px); text-shadow: 0 0 1px rgba(0,0,0,0.5); }
+.face-front p { font-size: 0.9rem; color: var(--laser); margin-top: 5px; z-index: 20; transform: translateZ(60px); }
+.face-back { transform: rotateY(180deg); background-color: #3a0000; background-image: repeating-linear-gradient(45deg, #250000 0, #250000 10px, #3a0000 10px, #3a0000 20px); border: 2px solid var(--laser); display: flex; justify-content: center; align-items: center; opacity: 1; animation-name: hide-back; backface-visibility: visible !important; z-index: 5; }
+.face-back::after { content: attr(data-symbol); font-family: Arial; font-size: 7rem; font-weight: bold; color: var(--laser); text-shadow: 0 0 20px var(--blood); background: #000; width: 120px; height: 120px; border-radius: 50%; border: 3px solid var(--laser); display: flex; justify-content: center; align-items: center; box-shadow: 0 0 40px var(--blood); z-index: 20; transform: translateZ(1px); }
+@keyframes rotate-card { 0% { transform: perspective(1000px) rotateY(180deg) translateY(0); opacity: 0; } 5% { opacity: 1; } 50% { transform: perspective(1000px) rotateY(180deg) translateY(-10px); } 60% { transform: perspective(1000px) rotateY(180deg) translateY(0); } 85% { transform: perspective(1000px) rotateY(0deg) translateY(-30px) scale(1.15); } 100% { transform: perspective(1000px) rotateY(0deg) translateY(0); opacity: 1; } }
+@keyframes hide-back { 0%, 75% { opacity: 1; } 76%, 100% { opacity: 0; } }
+@keyframes show-front { 0%, 75% { opacity: 0; } 76%, 100% { opacity: 1; } }
+
+.policy-grid {
+    display: grid;
+    /* 4 Columns */
+    grid-template-columns: repeat(4, 1fr); 
+    /* This makes all items in the same row the same height */
+    align-items: stretch; 
+    gap: 50px;
+    padding: 5px;
+}
+
+.policy-card {
+    /* 1. SIZE & LAYOUT */
+    height: 100%; /* Fill the grid cell */
+    min-height: 200px; /* Minimum height for uniformity */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* Center text vertically */
+    
+    /* 2. DESIGN */
+    background: linear-gradient(145deg, #1a0000 0%, #000000 100%);
+    border: 3px solid var(--blood);
+    padding: 30px;
+    text-align: center;
+    
+    /* 3. TEXT */
+    color: #e0e0e0;
+    font-family: 'Cinzel', serif;
+    font-size: 1.3rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    
+    /* 4. ANIMATION */
+    cursor: pointer;
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: inset 0 0 30px rgba(0,0,0,0.8);
+}
+
+/* Hover Effects (Keep existing) */
+.policy-card:hover {
+    transform: translateY(-10px);
+    border-color: var(--laser);
+    background: linear-gradient(145deg, #2a0000 0%, #050000 100%);
+    color: #fff;
+    box-shadow: 0 10px 30px rgba(255, 0, 51, 0.3);
+    text-shadow: 0 0 10px var(--laser);
+}
+
+/* Bottom Bar (Keep existing) */
+.policy-card::after {
+    content: ""; position: absolute; bottom: 0; left: 0;
+    width: 100%; height: 4px; background: var(--laser);
+    box-shadow: 0 0 10px var(--laser);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 0.4s ease;
+}
+.policy-card:hover::after { transform: scaleX(1); }
+
+/* Responsive Grid (Keep existing) */
+@media (max-width: 1200px) { .policy-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px) { .policy-grid { grid-template-columns: 1fr; } }
+
+/* =========================================
+   POPUP MODAL SYSTEM (FIXED & BIG)
+   ========================================= */
+
+/* 1. THE BACKGROUND OVERLAY (Must exist to show the popup) */
+.modal {
+    position: fixed; 
+    inset: 0; /* Full Screen */
+    background: rgba(0, 0, 0, 0.95); /* Dark background */
+    z-index: 9999; /* On top of everything */
+    
+    /* Flexbox to center the box */
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+    
+    /* Default State: Hidden */
+    opacity: 0; 
+    pointer-events: none; 
+    transition: opacity 0.3s ease;
+}
+
+/* 2. THE ACTIVE STATE (Added by JS when clicked) */
+.modal.show {
+    opacity: 1; 
+    pointer-events: auto; /* Allow clicking */
+}
+
+/* 3. THE BIG BOX ITSELF */
+.modal-box {
+    width: 90%;
+    max-width: 1000px; /* HUGE WIDTH */
+    min-height: 400px; /* HUGE HEIGHT */
+    
+    background: #050000;
+    border: 2px solid var(--laser);
+    box-shadow: 0 0 50px var(--blood);
+    padding: 60px;
+    border-radius: 15px;
+    position: relative;
+    
+    /* Center text inside */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    
+    /* Animation */
+    transform: scale(0.8);
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Pop animation when showing */
+.modal.show .modal-box {
+    transform: scale(1);
+}
+
+/* 4. TEXT SIZES INSIDE POPUP */
+/* Force the title to be big */
+.modal-box h2 {
+    font-size: 3rem !important; 
+    margin-bottom: 30px !important;
+    color: var(--laser);
+    font-family: 'Cinzel', serif;
+    text-shadow: 0 0 20px var(--blood);
+}
+
+/* Force the description to be big */
+.modal-box p {
+    font-size: 1.6rem !important;
+    line-height: 1.8 !important;
+    color: #ddd;
+}
+
+/* 5. CLOSE BUTTON */
+.close-btn {
+    position: absolute; 
+    top: 20px; 
+    right: 30px;
+    font-size: 50px; 
+    cursor: pointer; 
+    color: var(--laser);
+    transition: 0.3s;
+    line-height: 1;
+}
+.close-btn:hover { 
+    color: #fff; 
+    text-shadow: 0 0 20px var(--laser); 
+    transform: rotate(90deg);
+}
+
+/* ตัวกล่อง Modal ใหญ่ */
+.leader-modal-content {
+    background: #050000;
+    width: 900px; max-width: 95%;
+    border: 2px solid var(--laser);
+    box-shadow: 0 0 50px var(--blood);
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+    animation: modal-pop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes modal-pop {
+    0% { transform: scale(0.8); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.close-modal {
+    position: absolute; top: 15px; right: 20px;
+    font-size: 2rem; color: var(--laser); cursor: pointer; z-index: 10;
+    transition: 0.3s;
+}
+.close-modal:hover { color: #fff; text-shadow: 0 0 10px var(--laser); }
+
+/* --- LEADER PROFILE BLOCKS (PREMIUM STYLE) --- */
+
+.leader-block {
+    display: grid;
+    grid-template-columns: 400px 1fr;
+    gap: 30px;
+    background: rgba(5, 0, 0, 0.85);
+    border: 1px solid #333;
+    /* Cyberpunk border effect */
+    box-shadow: 0 0 20px rgba(0,0,0,0.8), inset 0 0 50px rgba(138, 0, 0, 0.1);
+    border-radius: 12px;
+    margin-bottom: 60px;
+    padding: 30px;
+    backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Decorative corner accent */
+.leader-block::before {
+    content: ""; position: absolute; top: 0; right: 0;
+    width: 100px; height: 100px;
+    background: linear-gradient(135deg, transparent 50%, var(--blood) 50%);
+    opacity: 0.5; pointer-events: none;
+}
+
+/* LEFT SIDE: IMAGE */
+.leader-left {
+    width: 100%; height: 100%; min-height: 500px;
+    background: #000;
+    border: 2px solid var(--laser);
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 0 15px var(--blood);
+}
+.leader-left img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: 0.5s;
+}
+.leader-block:hover .leader-left img { transform: scale(1.05); }
+
+/* RIGHT SIDE: INFO BOXES (UPGRADED) */
+.leader-right {
+    display: flex; flex-direction: column; justify-content: center; gap: 12px;
+}
+
+/* THE NEW BOX STYLE */
+.info-box {
+    /* Gradient Background */
+    background: linear-gradient(90deg, rgba(30, 0, 0, 0.9) 0%, rgba(10, 0, 0, 0.5) 100%);
+    
+    /* Neon Left Border */
+    border-left: 4px solid var(--laser);
+    border-top: 1px solid #333;
+    border-right: 1px solid #333;
+    border-bottom: 1px solid #333;
+    
+    padding: 12px 20px;
+    border-radius: 0 6px 6px 0; /* Rounded only on right */
+    display: flex; flex-direction: column;
+    position: relative;
+    transition: 0.3s;
+}
+
+.info-box:hover {
+    background: linear-gradient(90deg, var(--blood) 0%, rgba(20, 0, 0, 0.5) 100%);
+    padding-left: 30px; /* Slide effect */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+}
+
+/* Position Box (The Big One) */
+.position-highlight {
+    background: linear-gradient(180deg, var(--blood) 0%, #2a0000 100%);
+    border: 1px solid var(--laser);
+    text-align: center; padding: 20px;
+    border-left: 1px solid var(--laser); /* Reset border for this one */
+    border-radius: 6px;
+    margin-bottom: 10px;
+}
+.position-highlight h2 {
+    color: #fff; margin: 0; font-size: 1.8rem;
+    font-family: 'Cinzel', serif; text-shadow: 0 0 10px #000;
+    letter-spacing: 1px;
+}
+.position-highlight .box-label { color: #ffcccc; opacity: 0.8; }
+
+/* Labels & Values */
+.box-label {
+    color: var(--laser); font-size: 0.75rem; font-weight: bold;
+    text-transform: uppercase; letter-spacing: 1px; margin-bottom: 2px;
+}
+.box-value {
+    color: #fff; font-size: 1.2rem; font-family: 'Prompt', sans-serif;
+    font-weight: 300;
+}
+
+/* --- CONTACT TAGS (IG & FB) --- */
+.contact-area { margin-top: 15px; }
+.contact-header {
+    font-size: 0.8rem; color: #888; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px;
+}
+.social-grid { display: flex; gap: 10px; }
+
+.social-link {
+    display: inline-flex; align-items: center; justify-content: center;
+    padding: 10px 25px;
+    text-decoration: none; font-weight: bold; color: #fff;
+    border-radius: 30px; /* Pill shape */
+    font-size: 0.9rem; transition: 0.3s;
+    font-family: 'Prompt', sans-serif;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+}
+
+/* Instagram Gradient */
+.social-link.ig {
+    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+}
+.social-link.ig:hover { box-shadow: 0 0 15px #dc2743; transform: translateY(-2px); }
+
+/* Facebook Blue */
+.social-link.fb {
+    background: #1877F2;
+}
+.social-link.fb:hover { box-shadow: 0 0 15px #1877F2; transform: translateY(-2px); }
+
+
+/* --- MEMBER LIST (5 COLUMNS) --- */
+.members-grid {
+    display: grid;
+    /* FORCE 5 COLUMNS */
+    grid-template-columns: repeat(5, 1fr); 
+    gap: 15px;
+    padding: 20px 0;
+}
+
+.member-card {
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid #333;
+    padding: 12px;
+    border-radius: 4px;
+    display: flex; align-items: center; gap: 10px;
+    transition: 0.2s;
+}
+.member-card:hover {
+    background: var(--blood); border-color: var(--laser);
+    transform: scale(1.05); z-index: 10;
+}
+.m-num { color: var(--laser); font-weight: bold; font-family: 'Cinzel'; width: 30px; }
+.m-name { color: #fff; font-size: 0.9rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+    .members-grid { grid-template-columns: repeat(4, 1fr); }
+}
+@media (max-width: 900px) {
+    .leader-block { grid-template-columns: 1fr; }
+    .leader-left { min-height: 400px; }
+    .members-grid { grid-template-columns: repeat(2, 1fr); }
+}
+/* =========================================
+   LOADING SCREEN SYSTEM
+   ========================================= */
+
+/* The Full Screen Overlay */
+#genesis-loader {
+    position: fixed;
+    inset: 0;
+    background: #000;
+    z-index: 10000; /* Highest priority */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.5s ease;
+}
+
+/* Hidden state (fade out) */
+#genesis-loader.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* The Loading Spinner/Logo */
+.loader-content {
+    text-align: center;
+    animation: pulse-loader 2s infinite;
+}
+
+.loader-text {
+    font-family: 'Cinzel', serif;
+    color: var(--laser);
+    font-size: 1.5rem;
+    letter-spacing: 5px;
+    margin-top: 20px;
+    text-shadow: 0 0 10px var(--blood);
+}
+
+.loader-spinner {
+    width: 50px;
+    height: 50px;
+    border: 3px solid rgba(255, 0, 51, 0.3);
+    border-top: 3px solid var(--laser);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto;
+}
+
+/* Animations */
+@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+@keyframes pulse-loader { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
+
+/* =========================================
+   SOCIAL MEDIA PAGE STYLES
+   ========================================= */
+
+.social-page-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.social-big-btn {
+    display: flex;
+    align-items: center;
+    padding: 30px;
+    background: rgba(0, 0, 0, 0.8);
+    border: 2px solid #333;
+    border-radius: 15px;
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Icons and Text */
+.s-icon { font-size: 3.5rem; margin-right: 30px; filter: drop-shadow(0 0 10px rgba(0,0,0,0.5)); transition: 0.3s; }
+.s-text h3 { font-family: 'Cinzel', serif; font-size: 2rem; color: #fff; margin: 0; line-height: 1; }
+.s-text p { color: #ccc; font-size: 1rem; margin-top: 5px; font-family: 'Prompt', sans-serif; }
+
+/* --- BRAND COLORS & HOVER EFFECTS --- */
+
+/* Facebook */
+.fb-brand:hover {
+    background: #1877F2;
+    border-color: #fff;
+    transform: scale(1.05) translateY(-5px);
+    box-shadow: 0 0 40px rgba(24, 119, 242, 0.6);
+}
+
+/* Instagram */
+.ig-brand:hover {
+    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    border-color: #fff;
+    transform: scale(1.05) translateY(-5px);
+    box-shadow: 0 0 40px rgba(220, 39, 67, 0.6);
+}
+
+/* TikTok */
+.tt-brand:hover {
+    background: linear-gradient(45deg, #000000 0%, #25F4EE 100%); /* TikTok Colors */
+    border-color: #FE2C55;
+    transform: scale(1.05) translateY(-5px);
+    box-shadow: 0 0 40px rgba(254, 44, 85, 0.4);
+}
+.tt-brand:hover .s-icon { transform: rotate(15deg); }
+
+/* Mobile Responsive */
+@media (max-width: 600px) {
+    .social-big-btn { flex-direction: column; text-align: center; padding: 20px; }
+    .s-icon { margin-right: 0; margin-bottom: 10px; font-size: 3rem; }
+    .s-text h3 { font-size: 1.5rem; }
+}
+/* =========================================
+   RESPONSIVE OPTIMIZATION (PHONE & IPAD)
+   ========================================= */
+
+/* --- TABLET / IPAD (Screens smaller than 1024px) --- */
+@media (max-width: 1024px) {
+    
+    /* 1. Policy Grid: Switch from 4 columns to 2 */
+    .policy-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    /* 2. Leader Block: Keep side-by-side but smaller image */
+    .leader-block {
+        grid-template-columns: 300px 1fr;
+        gap: 20px;
+        padding: 20px;
+    }
+}
+
