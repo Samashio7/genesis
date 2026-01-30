@@ -2,171 +2,31 @@
    GENESIS DATA & LOGIC
    ========================================= */
 
-/* --- 1. LEADER DATA --- */
-const leadersData = [
-    {
-        name: "นายนาวี บานกระโทก",
-        pos: "ประธานพรรค GENESIS",
-        nick: "เอ็ม",
-        edu: "จบประถมศึกษาปีที่6จาก โรงเรียนบ้านกุดโคลนจบมัธยมศึกษาตอนต้นจาก โรงเรียนกระสังพิทยาคม",
-        img: "img/photoimg/LINE_ALBUM_แกนนำ_260125_15.jpg",
-        ig: "https://www.instagram.com/m_nawee_52/",
-        fb: "https://www.facebook.com/nawin.niram"
-    },
-    {
-        name: "นางสาวณัฐพร พะนิรัมย์",
-        pos: "รองฝ่ายอำนวยการ",
-        nick: "แก้ม",
-        edu: "ประวัติการศึกษาจบประถมศึกษาปีที่6จาก โรงเรียนบ้านศรีภูมิสามัคคี จบมัธยมศึกษาตอนต้นจาก โรงเรียนกระสังพิทยาคม",
-        img: "img/photoimg/LINE_ALBUM_แกนนำ_260125_14.jpg",
-        ig: "https://www.instagram.com/kaxi_em6/",
-        fb: "https://www.facebook.com/nattaporn.phaniram"
-    },
-    // ... COPY AND PASTE THE BLOCK BELOW FOR LEADERS 3-15 ...
-    {
-        name: "นางสาวสุชาดา บุญก้อง",
-        pos: "รองฝ่ายวิชาการ",
-        nick: "น้ำหวาน",
-        edu: "จบประถมศึกษาปีที่6จาก โรงเรียนบ้านขามตาเบ้าจบมัธยมศึกษาตอนต้นจาก โรงเรียนกระสังพิทยาคม",
-        img: "img/photoimg/LINE_ALBUM_แกนนำ_260125_13.jpg", // ใส่ path รูปภาพ
-        ig: "https://www.instagram.com/suchadaa_._.09/",
-        fb: "https://www.facebook.com/suchada.buykong"
-    },
-    {
-        name: "นายเผดิมภพ จันทร์ดวง",
-        pos: "รองฝ่ายกิจการนักเรียน",
-        nick: "มาร์ค",
-        edu: "จบประถมศึกษาปีที่6จาก โรงเรียนบ้านสวายสอ 'ไกรปัญญานุเคราะห์' จบมัธยมศึกษาตอนต้นจาก โรงเรียนกระสังพิทยาคม",
-        img: "img/photoimg/LINE_ALBUM_แกนนำ_260125_12.jpg", // ใส่ path รูปภาพ
-        ig: "https://www.instagram.com/mmk_.on2u/",
-        fb: "https://www.facebook.com/mark.kung.317227"
-    },
-    {
-        name: "นางสาวสิริรัตน์ พิเรศรัมย์",
-        pos: "รองฝ่ายบริหารทั่วไป",
-        nick: "ไข่มุก",
-        edu: "จบประถมศึกษาปีที่6จาก โรงเรียนวัดธรรมถาวรจบมัธยมศึกษาตอนต้นจาก โรงเรียนกระสังพิทยาคม",
-        img: "img/photoimg/LINE_ALBUM_แกนนำ_260125_11.jpg", // ใส่ path รูปภาพ
-        ig: "https://www.instagram.com/mmookk_sirirat/",
-        fb: "https://www.facebook.com/sirirat.kaimook"
-    },
-    {
-        name: "นางสาวปิยะนุช ปรากฏหาญ",
-        pos: "ประธานฝ่ายเหรัญญิก",
-        nick: "น้ำอิง",
-        edu: "จบประถมศึกษาปีที่6จาก โรงเรียนบ้านสูงเนินจบมัธยมศึกษาตอนต้นจาก โรงเรียนกระสังพิทยาคม",
-        img: "img/photoimg/LINE_ALBUM_แกนนำ_260125_10.jpg", // ใส่ path รูปภาพ
-        ig: "https://www.instagram.com/ingxiiii/",
-        fb: "https://www.facebook.com/piyanuch.prakodhan"
-    },
-    {
-        name: "นางสาวจิรัชยา การเพียร",
-        pos: "ประธานฝ่านเลขานุการ",
-        nick: "โมโม่",
-        edu: "จบประถมศึกษาปีที่6จาก โรงเรียนบ้านกะนัง(ฤทธ์ประชาสรรค์)จบมัธยมศึกษาตอนต้นจาก โรงเรียนกระสังพิทยาคม",
-        img: "img/photoimg/LINE_ALBUM_แกนนำ_260125_9.jpg", // ใส่ path รูปภาพ
-        ig: "https://www.instagram.com/momo_meow._/",
-        fb: "https://www.facebook.com/jiratchaya.kanphean"
-    },
-    {
-        name: "นางสาวปรีดาพร อาจทวีกูล",
-        pos: "ประธานฝ่ายสำนักงานและธุรการ",
-        nick: "ข้าวฟ่าง",
-        edu: "จบประถมศึกษาปีที่6จาก โรงเรียนบ้านอโณทัยจบมัธยมศึกษาตอนต้นจาก โรงเรียนกระสังพิทยาคม",
-        img: "img/photoimg/LINE_ALBUM_แกนนำ_260125_8.jpg", // ใส่ path รูปภาพ
-        ig: "https://www.instagram.com/_luvfang/",
-        fb: "https://www.facebook.com/preedaporn.ardtaweekul"
-    },
-    {
-        name: " นางสาวอเล็กซานดร้า นาตาชา พาร์คคิน",
-        pos: "ประธานฝ่ายประชาสัมพันธ์",
-        nick: "อเล็กซ์",
-        edu: "จบประถมศึกษาปีที่6จาก โรงเรียนบ้านตารามจบมัธยมศึกษาตอนต้นจาก โรงเรียนกระสังพิทยาคม",
-        img: "img/photoimg/LINE_ALBUM_แกนนำ_260125_7.jpg", // ใส่ path รูปภาพ
-        ig: "https://www.instagram.com/alexnatachz/",
-        fb: "https://www.facebook.com/alexandra.parkin.5891"
-    },
-    {
-        name: "นางสาวณัฐธิดา พะนิรัมย์",
-        pos: "ประธานฝ่ายกิจกรรมและนันทนาการ",
-        nick: "ไอซ์",
-        edu: "จบประถมศึกษาปีที่6จาก โรงเรียนบ้านลำดวนจบมัธยมศึกษาตอนต้นจาก โรงเรียนกระสังพิทยาคม",
-        img: "img/photoimg/LINE_ALBUM_แกนนำ_260125_6.jpg", // ใส่ path รูปภาพ
-        ig: "https://www.facebook.com/nttidr.paniram",
-        fb: "https://www.instagram.com/jusst.mxe/"
-    },
-    {
-        name: "นางสาวพรธิวา บาลไธสง",
-        pos: "ประธานฝ่ายวัดและประเมินผล",
-        nick: "ฟ้า",
-        edu: "จบประถมศึกษาปีที่6จาก โรงเรียนวัดบ้านเมืองโพธิ์จบมัธยมศึกษาตอนต้นจาก โรงเรียนวัดบ้านเมืองโพธิ์",
-        img: "img/photoimg/LINE_ALBUM_แกนนำ_260125_5.jpg", // ใส่ path รูปภาพ
-        ig: "https://www.instagram.com/missold_u/",
-        fb: "https://www.facebook.com/phothiwa.phothiwa"
-    },
-    {
-        name: "นายจักรรินทร์ ซาเสน",
-        pos: "ประธานฝ่ายโสตทัศนศึกษาและเทคโนโลยี",
-        nick: "การ์ด",
-        edu: "จบประถมศึกษาปีที่6จาก โรงเรียนบ้านขามตาเบ้าจบมัธยมศึกษาตอนต้นจาก โรงเรียนกระสังพิทยาคม",
-        img: "img/photoimg/LINE_ALBUM_แกนนำ_260125_4.jpg", // ใส่ path รูปภาพ
-        ig: "https://www.instagram.com/x3salen9/",
-        fb: "https://www.facebook.com/profile.php?id=100095134456086"
-    },
-    {
-        name: "นายพีระภาค สนุกล้ำ",
-        pos: "ประธานฝ่ายระดับชั้นและระเบียบวินัย",
-        nick: "พุฒ",
-        edu: "จบประถมศึกษาปีที่6จาก โรงเรียนวัดอินทบูรพาจบมัธยมศึกษาตอนต้นจาก โรงเรียนวัดอินทบูรพา",
-        img: "img/photoimg/LINE_ALBUM_แกนนำ_260125_3.jpg", // ใส่ path รูปภาพ
-        ig: "https://www.instagram.com/pu_typ/",
-        fb: "https://www.facebook.com/pudpeerapak"
-    },
-    {
-        name: "นางสาวณัฏฐาวรีย์ พินิชรัมย์",
-        pos: "ประธานฝ่ายสวัสดิการและปฏิคม",
-        nick: "แอ๋ม",
-        edu: "จบประถมศึกษาปีที่6จาก โรงเรียนวัดธรรมถาวรจบมัธยมศึกษาตอนต้นจาก โรงเรียนกระสังพิทยาคม",
-        img: "img/photoimg/LINE_ALBUM_แกนนำ_260125_2.jpg", // ใส่ path รูปภาพ
-        ig: "https://www.instagram.com/natawaree_/",
-        fb: "https://www.facebook.com/natawaree.amm"
-    },
-    {
-        name: "นายปัญญา กุลแก้ว",
-        pos: "ประธานฝ่ายอาคารและสถานที่",
-        nick: "บอล",
-        edu: "ประวัติการศึกษาจบประถมศึกษาปีที่6จาก โรงเรียนบ้านระกาเสม็ดจบมัธยมศึกษาตอนต้นจาก โรงเรียนกระสังพิทยาคม",
-        img: "img/photoimg/LINE_ALBUM_แกนนำ_260125_1.jpg", // ใส่ path รูปภาพ
-        ig: "https://www.instagram.com/panya_2009/",
-        fb: "https://www.facebook.com/panya.kunkaew"
-    },
-];
+/* --- DATA STORAGE (Loaded from JSON files) --- */
+let leadersData = [];
+let membersData = [];
+let policies = [];
 
+/* --- LOAD DATA FROM JSON FILES --- */
+async function loadData() {
+    try {
+        // Fetch all JSON files in parallel
+        const [leadersResponse, membersResponse, policiesResponse] = await Promise.all([
+            fetch('data/leaders.json'),
+            fetch('data/members.json'),
+            fetch('data/policies.json')
+        ]);
 
-/* --- 2. MEMBER DATA --- */
-const membersData = [
-    "นาย สวัส ดี", "นางสาว รัก ดี", "นาย ใจ กล้า"
-];
+        // Parse JSON data
+        leadersData = await leadersResponse.json();
+        membersData = await membersResponse.json();
+        policies = await policiesResponse.json();
 
-/* --- 3. POLICY DATA --- */
-const policies = [
-  { t: "1. สุขาน่าใช้", d: "ห้องน้ำจะต้องได้รับการแก้ไขในด้านต่างๆ เพราะห้องน้ำที่ดีต้องถูกต้องตามหลักสุขลักษณะ จุดประสงค์เพื่อใช้ในการขับถ่าย เพื่อความสะอาดส่วนบุคคล เพื่อป้องกันการแพร่กระจายของเชื้อโรค ปัญหาที่เราพบ ประตูพัง มีกลิ่นที่รุนแรง น้ำสำหรับใช้ทำธุระส่วนตัวหมด ฯลฯ ปัญหาเหล่านี้จะต้องหมดไป" },
-  { t: "2. โรงเรียนไร้ควัน", d: "เราพร้อมที่จะทำงานร่วมกับเจ้าหน้าที่ลาดตระเวนหรือฝ่ายกิจการนักเรียน ในการควบคุมดูแลนักเรียนไม่ให้นักเรียนสูบบุหรี่ภายในโรงเรียน หรือสถานที่ราชการ และเพื่อป้องกันโรคที่มาพร้อมกับการสูบบุหรี่อีกด้วย นักเรียนจะได้มีสุขภาพที่ดีขึ้น และไม่เป็นปัญหาของสังคม" },
-  { t: "3. นักเรียนกล้าพูด", d: "เพื่อปัญหาภายในโรงเรียนหมดไป นักเรียนคนใดที่พบปัญหาที่อยู่ภายในโรงเรียน สามารถแจ้งพวกเราให้ดำเนินการแก้ไข โดยทางเราจะเปิดช่องทางรับฟังปัญหาและข้อเสนอแนะจากนักเรียนอย่างทั่วถึง" },
-  { t: "4. ความเท่าเทียม", d: "เราจะทำให้นักเรียนทุกคนมีความเท่าเทียมกัน มีสิทธิ์ที่จะแสดงความคิดเห็นในเรื่องต่างๆ มีสิทธิ์ที่จะแสดงออกในด้านต่างๆที่สร้างสรรค์และพวกเรา Genesis พร้อมที่จะสนับสนุน lgbtq+ ในทุกๆโอกาส" },
-  { t: "5. พี่ช่วยน้อง", d: "พี่ช่วยน้อง น้องช่วยพี่ภายโรงเรียนเรามีนักเรียนที่มีความสามารถมากมายในด้านต่างๆ หากเราต้องการเรียนรู้ในสิ่งที่สนใจ สามารถปรึกษาผู้รู้ไม่ว่าจะเป็นรุ่นพี่หรือรุ่น้องเพื่อกระชับความสัมพันธ์ภายในโรงเรียน" },
-  { t: "6. ฝันที่เป็นจริง", d: "ทำฝันให้เป็นจริงนักเรียนทุกคนล้วนมี ความคิด ความฝัน ความสามารถ ในด้านต่างๆ พวกเราพร้อมที่จะสนับสนุนและจัดกิจกรรมเพื่อให้นักเรียนแสดงความสามารถนั้นได้เต็มที่" },
-  { t: "7. พัฒนาโรงอาหาร", d: "พวกเราพร้อมที่จะทำให้โรงอาหารมีความสะอาด สะดวกต่อการรับประทานอาหาร และจัดการเรื่องพัดลมที่อยู่ภายในโรงอาหารให้สามารถใช้งานได้ทุกตัวครอบคลุมทั้งโรงอาหาร" },
-  { t: "8. ส่งรักรายเดือน", d: "เราจะจัดทำจุดส่งจดหมายถึงนักเรียนและคณะครูภายในโรงเรียน เพื่อให้นักเรียนเขียนความในใจส่งถึงคนที่เราอยากให้อ่าน โดยระหว่างที่จดหมายอยู่กับเรา จะไม่สามารถมีใครอ่านได้ จนกว่าจะถึงมือผู้รับ" },
-  { t: "9. สานต่อนโยบายเดิม", d: "เราจะนำนโยบายที่รุ่นพี่ที่เคยทำไว้ในปีการศึกษาที่ผ่านมา หรือการที่นโยบายนั้นดำเนินอยู่นำมาพัฒนาโรงเรียนให้มีความน่าอยู่มากยิ่งขึ้น" },
-  { t: "10. ดาวเดือนสร้างสรรค์", d: "เราจะให้นักเรียนแต่ละคนที่มีสามารถสมัครเข้าประกวดดาวเดือนในแต่ละข่วงชั้นนั้นๆ เพื่อให้นักเรียนมีความกล้าแสดงออกในด้านต่างๆ" },
-  { t: "11. ทิชชู่ทั่วถึง", d: "ภายในห้องน้ำควรมีสิ่งอำนวยความสะดวกให้แก่ผู้ใช้งาน โดยหนึ่งในนั้นคือกระดาษชำระ เราจะจัดเตรียมกระดาษชำระให้แก่นักเรียนที่ต้องการใช้ภายในห้องน้ำ เพื่อความสะดวกและความสะอาดแก่ผู้ใช้งานห้องน้ำ" },
-  { t: "12. ออกแบบปกสมุด", d: "ก่อนเปิดภาคเรียน จะมีการแจกสมุดพร้อมอุปกรณ์การเรียนเพื่อให้นักเรียนได้ใช้เรียน เราจะเปิดให้นักเรียนได้ออกแบบปกสมุดเพื่อใช้ในการเรียน เพื่อสนับสนุนความสามารถนักเรียนด้านศิลปะการออกแบบ การวาดรูป" },
-  { t: "13. น้ำดื่มสะอาด", d: "เราจะทำการตรวจสอบตู้กดน้ำในทุกๆเช้าเพื่อความสะอาดของตู้กดน้ำ เพราะน้ำดื่มเป็นสิ่งที่จำเป็นต่อการใช้ชีวิต เราจึงต้องทำให้น้ำสะอาดดื่มสะอาดตลอดเวลา" },
-  { t: "14. กล่องฉุกเฉิน", d: "ห้องน้ำเราจะใส่กล่องฉุกเฉินในห้องน้ำ เพื่อให้นักเรียนที่เกิดเหตุฉุกเฉินสามารถช่วยเหลือตัวเองได้ทันทีที่ต้องการ เช่นผ้าอนามัย ยางมัดผม กิ๊ปติดผม " },
-  { t: "15. Content สร้างสรรค์", d: "โรงเรียนเพื่อสนับสนุนให้นักเรียนมีความกล้าแสดงออก เพื่อพัฒนาศักยภาพของนักเรียนด้านการนำเสนอ และเป็นการทำให้โรงเรียนเป็นที่รุูจักมากยิ่งขึ้นอีกด้วย" },
-  { t: "16. สาระยามเช้า", d: "เราจะมีการประชาสัมพันธ์พูดคุย อัพเดทข่าวสารต่างๆในช่วงเช้าว่าในช่วงนั้นมีสถานกนารณ์อะไรเกิดขึ้นบ้าง สัปดาห์ละ 1 วัน" }
-];
+        console.log('✅ Data loaded successfully');
+    } catch (error) {
+        console.error('❌ Error loading data:', error);
+    }
+}
 
 
 /* =========================================
@@ -183,9 +43,12 @@ document.write(`
     </div>
 `);
 
-window.onload = () => {
+window.onload = async () => {
     
-    // 2. RENDER CONTENT FIRST
+    // 1. LOAD DATA FROM JSON FILES FIRST
+    await loadData();
+    
+    // 2. RENDER CONTENT AFTER DATA IS LOADED
     renderLeaders();
     renderMembers();
     renderPolicies();
@@ -196,17 +59,24 @@ window.onload = () => {
     const savedScroll = sessionStorage.getItem(`scrollPos_${currentPath}`);
     
     if (savedScroll) {
-        // Slight delay to ensure browsers respect the jump
+        // Delay to ensure smooth scroll restoration
         setTimeout(() => {
-            window.scrollTo(0, parseInt(savedScroll));
-        }, 0);
+            window.scrollTo({
+                top: parseInt(savedScroll),
+                behavior: 'instant'
+            });
+        }, 50);
     }
 
-    // 4. HIDE LOADER (Fade Out)
+    // 4. HIDE LOADER (Smooth Fade Out)
+    // Minimum loading time ensures smooth transition
     setTimeout(() => {
-        document.getElementById('genesis-loader').classList.add('hidden');
-        document.body.classList.add('loaded'); // Trigger existing fade-in
-    }, 500); // 0.5s loading time
+        const loader = document.getElementById('genesis-loader');
+        if (loader) {
+            loader.classList.add('hidden');
+        }
+        document.body.classList.add('loaded');
+    }, 600); // Slightly longer for smoother feel
 
     // 5. SETUP LINK INTERCEPTORS (To Save Scroll on Exit)
     setupNavigation();
@@ -228,13 +98,21 @@ function setupNavigation() {
                 const currentPath = window.location.pathname;
                 sessionStorage.setItem(`scrollPos_${currentPath}`, window.scrollY);
 
-                // B. Show Loader
-                document.getElementById('genesis-loader').classList.remove('hidden');
+                // B. Fade out body smoothly
+                document.body.classList.add('fade-out-active');
 
-                // C. Go to new page after delay
+                // C. Show Loader with slight delay for smooth transition
+                setTimeout(() => {
+                    const loader = document.getElementById('genesis-loader');
+                    if (loader) {
+                        loader.classList.remove('hidden');
+                    }
+                }, 200);
+
+                // D. Navigate to new page after smooth fade
                 setTimeout(() => {
                     window.location.href = target;
-                }, 500);
+                }, 600); // Increased for smoother transition
             }
         });
     });
@@ -245,13 +123,40 @@ function renderLeaders() {
     const container = document.getElementById('leaders-container');
     if(!container) return;
     
+    // Card ranks for leader hierarchy
+    const leaderRanks = ['A', 'K', 'K', 'K', 'K', 'Q', 'Q', 'Q', 'Q', 'J', 'J', 'J', 'J', '10', '10'];
+    const suits = ['♠', '♥', '♦', '♣'];
+    const suitClasses = ['suit-black', 'suit-red', 'suit-red', 'suit-black'];
+    
     let html = '';
-    leadersData.forEach((l) => {
+    leadersData.forEach((l, index) => {
         const imageSrc = l.img ? l.img : 'https://via.placeholder.com/400x600/000000/ff0033?text=NO+IMAGE';
+        
+        // Get rank & suit for this leader
+        const rank = leaderRanks[index] || '10';
+        const suitIndex = index % 4;
+        const suit = suits[suitIndex];
+        const suitClass = suitClasses[suitIndex];
+        
         html += `
         <div class="leader-block">
+            <!-- Card Rank Badge -->
+            <div class="leader-rank-badge">
+                <span class="rank-number">${rank}</span>
+                <span class="rank-suit ${suitClass}">${suit}</span>
+            </div>
+            
             <div class="leader-left">
                 <img src="${imageSrc}" alt="${l.name}">
+                <!-- Corner decorations -->
+                <div class="card-corner top-left">
+                    <span class="corner-rank">${rank}</span>
+                    <span class="corner-suit ${suitClass}">${suit}</span>
+                </div>
+                <div class="card-corner bottom-right">
+                    <span class="corner-rank">${rank}</span>
+                    <span class="corner-suit ${suitClass}">${suit}</span>
+                </div>
             </div>
             <div class="leader-right">
                 <div class="info-box position-highlight">
@@ -303,9 +208,25 @@ function renderPolicies() {
     const grid = document.getElementById('policyGrid');
     if(!grid) return;
     
+    // All red suits for decoration
+    const suits = ['♠', '♥', '♦', '♣'];
+    
     let html = '';
     policies.forEach((p, index) => {
-        html += `<div class="policy-card" onclick="openPolicy(${index})">${p.t}</div>`;
+        // Simple number 1-16
+        const cardNumber = index + 1;
+        
+        // Cycle through suits (all red)
+        const suitIndex = index % 4;
+        const suit = suits[suitIndex];
+        
+        html += `
+        <div class="policy-card" data-number="${cardNumber}" onclick="openPolicy(${index})">
+            <span class="card-suit-top suit-red">${suit}</span>
+            <span class="card-center-suit suit-red">${suit}</span>
+            <span class="policy-text">${p.t}</span>
+            <span class="card-suit-bottom suit-red">${suit}</span>
+        </div>`;
     });
     grid.innerHTML = html;
 }
@@ -322,7 +243,43 @@ function openPolicy(index) {
             <h2 style="color:var(--laser); font-family:'Cinzel'; margin-bottom:20px; font-size:2rem;">${p.t}</h2>
             <p style="font-size:1.3rem; line-height:1.8; color:#ddd;">${p.d}</p>
         </div>`;
+    
+    // Get current scroll position
+    const scrollY = window.scrollY || window.pageYOffset;
+    
+    // Show modal
     modal.classList.add('show');
+    
+    // Force modal to render at current viewport center
+    modal.style.top = scrollY + 'px';
+    
+    // Prevent body scroll when modal is open
+    document.body.style.overflow = 'hidden';
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${scrollY}px`;
+    document.body.style.width = '100%';
 }
-function closePopup() { document.getElementById('infoModal').classList.remove('show'); }
-function closeOutside(e) { if(e.target.id === 'infoModal') closePopup(); }
+
+function closePopup() { 
+    const modal = document.getElementById('infoModal');
+    if(modal) {
+        modal.classList.remove('show');
+        modal.style.top = '';
+    }
+    
+    // Restore body scroll and position
+    const scrollY = document.body.style.top;
+    document.body.style.overflow = '';
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.width = '';
+    
+    // Restore scroll position
+    window.scrollTo(0, parseInt(scrollY || '0') * -1);
+}
+
+function closeOutside(e) { 
+    if(e.target.id === 'infoModal') {
+        closePopup();
+    }
+}
