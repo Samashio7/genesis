@@ -59,17 +59,24 @@ window.onload = async () => {
     const savedScroll = sessionStorage.getItem(`scrollPos_${currentPath}`);
     
     if (savedScroll) {
-        // Slight delay to ensure browsers respect the jump
+        // Delay to ensure smooth scroll restoration
         setTimeout(() => {
-            window.scrollTo(0, parseInt(savedScroll));
-        }, 0);
+            window.scrollTo({
+                top: parseInt(savedScroll),
+                behavior: 'instant'
+            });
+        }, 50);
     }
 
-    // 4. HIDE LOADER (Fade Out)
+    // 4. HIDE LOADER (Smooth Fade Out)
+    // Minimum loading time ensures smooth transition
     setTimeout(() => {
-        document.getElementById('genesis-loader').classList.add('hidden');
-        document.body.classList.add('loaded'); // Trigger existing fade-in
-    }, 500); // 0.5s loading time
+        const loader = document.getElementById('genesis-loader');
+        if (loader) {
+            loader.classList.add('hidden');
+        }
+        document.body.classList.add('loaded');
+    }, 600); // Slightly longer for smoother feel
 
     // 5. SETUP LINK INTERCEPTORS (To Save Scroll on Exit)
     setupNavigation();
@@ -91,13 +98,21 @@ function setupNavigation() {
                 const currentPath = window.location.pathname;
                 sessionStorage.setItem(`scrollPos_${currentPath}`, window.scrollY);
 
-                // B. Show Loader
-                document.getElementById('genesis-loader').classList.remove('hidden');
+                // B. Fade out body smoothly
+                document.body.classList.add('fade-out-active');
 
-                // C. Go to new page after delay
+                // C. Show Loader with slight delay for smooth transition
+                setTimeout(() => {
+                    const loader = document.getElementById('genesis-loader');
+                    if (loader) {
+                        loader.classList.remove('hidden');
+                    }
+                }, 200);
+
+                // D. Navigate to new page after smooth fade
                 setTimeout(() => {
                     window.location.href = target;
-                }, 500);
+                }, 600); // Increased for smoother transition
             }
         });
     });
@@ -108,13 +123,40 @@ function renderLeaders() {
     const container = document.getElementById('leaders-container');
     if(!container) return;
     
+    // Card ranks for leader hierarchy
+    const leaderRanks = ['A', 'K', 'K', 'K', 'K', 'Q', 'Q', 'Q', 'Q', 'J', 'J', 'J', 'J', '10', '10'];
+    const suits = ['♠', '♥', '♦', '♣'];
+    const suitClasses = ['suit-black', 'suit-red', 'suit-red', 'suit-black'];
+    
     let html = '';
-    leadersData.forEach((l) => {
+    leadersData.forEach((l, index) => {
         const imageSrc = l.img ? l.img : 'https://via.placeholder.com/400x600/000000/ff0033?text=NO+IMAGE';
+        
+        // Get rank & suit for this leader
+        const rank = leaderRanks[index] || '10';
+        const suitIndex = index % 4;
+        const suit = suits[suitIndex];
+        const suitClass = suitClasses[suitIndex];
+        
         html += `
         <div class="leader-block">
+            <!-- Card Rank Badge -->
+            <div class="leader-rank-badge">
+                <span class="rank-number">${rank}</span>
+                <span class="rank-suit ${suitClass}">${suit}</span>
+            </div>
+            
             <div class="leader-left">
                 <img src="${imageSrc}" alt="${l.name}">
+                <!-- Corner decorations -->
+                <div class="card-corner top-left">
+                    <span class="corner-rank">${rank}</span>
+                    <span class="corner-suit ${suitClass}">${suit}</span>
+                </div>
+                <div class="card-corner bottom-right">
+                    <span class="corner-rank">${rank}</span>
+                    <span class="corner-suit ${suitClass}">${suit}</span>
+                </div>
             </div>
             <div class="leader-right">
                 <div class="info-box position-highlight">
@@ -166,9 +208,25 @@ function renderPolicies() {
     const grid = document.getElementById('policyGrid');
     if(!grid) return;
     
+    // All red suits for decoration
+    const suits = ['♠', '♥', '♦', '♣'];
+    
     let html = '';
     policies.forEach((p, index) => {
-        html += `<div class="policy-card" onclick="openPolicy(${index})">${p.t}</div>`;
+        // Simple number 1-16
+        const cardNumber = index + 1;
+        
+        // Cycle through suits (all red)
+        const suitIndex = index % 4;
+        const suit = suits[suitIndex];
+        
+        html += `
+        <div class="policy-card" data-number="${cardNumber}" onclick="openPolicy(${index})">
+            <span class="card-suit-top suit-red">${suit}</span>
+            <span class="card-center-suit suit-red">${suit}</span>
+            <span class="policy-text">${p.t}</span>
+            <span class="card-suit-bottom suit-red">${suit}</span>
+        </div>`;
     });
     grid.innerHTML = html;
 }
@@ -185,7 +243,43 @@ function openPolicy(index) {
             <h2 style="color:var(--laser); font-family:'Cinzel'; margin-bottom:20px; font-size:2rem;">${p.t}</h2>
             <p style="font-size:1.3rem; line-height:1.8; color:#ddd;">${p.d}</p>
         </div>`;
+    
+    // Get current scroll position
+    const scrollY = window.scrollY || window.pageYOffset;
+    
+    // Show modal
     modal.classList.add('show');
+    
+    // Force modal to render at current viewport center
+    modal.style.top = scrollY + 'px';
+    
+    // Prevent body scroll when modal is open
+    document.body.style.overflow = 'hidden';
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${scrollY}px`;
+    document.body.style.width = '100%';
 }
-function closePopup() { document.getElementById('infoModal').classList.remove('show'); }
-function closeOutside(e) { if(e.target.id === 'infoModal') closePopup(); }
+
+function closePopup() { 
+    const modal = document.getElementById('infoModal');
+    if(modal) {
+        modal.classList.remove('show');
+        modal.style.top = '';
+    }
+    
+    // Restore body scroll and position
+    const scrollY = document.body.style.top;
+    document.body.style.overflow = '';
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.width = '';
+    
+    // Restore scroll position
+    window.scrollTo(0, parseInt(scrollY || '0') * -1);
+}
+
+function closeOutside(e) { 
+    if(e.target.id === 'infoModal') {
+        closePopup();
+    }
+}

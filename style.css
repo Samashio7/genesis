@@ -12,20 +12,33 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
-    background: linear-gradient(-45deg, #000000, #1a0000, #050000, #2a0000);
-    background-size: 400% 400%;
-    animation: void-breathe 15s ease infinite;
+    background: 
+        radial-gradient(ellipse at top left, #4a0a0a 0%, transparent 50%),
+        radial-gradient(ellipse at bottom right, #3a0505 0%, transparent 50%),
+        radial-gradient(ellipse at center, #2a0808 0%, transparent 70%),
+        linear-gradient(180deg, #1a0303 0%, #2a0808 30%, #3a0f0f 50%, #2a0808 70%, #1a0303 100%);
+    background-color: #150404;
+    background-attachment: fixed;
     color: var(--text);
     font-family: 'Prompt', sans-serif;
     overflow-x: hidden;
     
-    /* FADE IN/OUT SYSTEM */
-    opacity: 0; 
-    transition: opacity 0.5s ease;
+    /* FADE IN/OUT SYSTEM - Smooth with GPU acceleration */
+    opacity: 0;
+    transition: opacity 0.6s cubic-bezier(0.4, 0.0, 0.2, 1);
+    will-change: opacity;
+    transform: translateZ(0);
+    backface-visibility: hidden;
 }
 
-body.loaded { opacity: 1; }
-body.fade-out-active { opacity: 0 !important; pointer-events: none; }
+body.loaded { 
+    opacity: 1; 
+}
+
+body.fade-out-active { 
+    opacity: 0 !important; 
+    pointer-events: none; 
+}
 
 @keyframes void-breathe {
     0% { background-position: 0% 50%; }
@@ -41,19 +54,26 @@ h1, h2, h3, .welcome-text, .section-title, .school-info {
 }
 
 /* =========================================
-   2. BACKGROUND EFFECTS
+   2. BACKGROUND EFFECTS (POKER THEME)
    ========================================= */
 .poker-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: -10; pointer-events: none; }
-.symbol { position: absolute; top: -10%; color: var(--laser); text-shadow: 0 0 10px var(--blood); opacity: 0; animation: fall linear infinite; user-select: none; }
-.s1 { left: 5%; font-size: 1.5rem; animation-duration: 7s; }
-.s2 { left: 15%; font-size: 3rem; animation-duration: 10s; animation-delay: 2s; opacity: 0.5; }
-.s3 { left: 25%; font-size: 2rem; animation-duration: 6s; animation-delay: 4s; }
-.s4 { left: 35%; font-size: 4rem; animation-duration: 12s; animation-delay: 1s; filter: blur(2px); }
-.s5 { left: 45%; font-size: 2.5rem; animation-duration: 8s; animation-delay: 3s; }
-.s6 { left: 55%; font-size: 1.8rem; animation-duration: 9s; animation-delay: 5s; }
-.s7 { left: 65%; font-size: 3.5rem; animation-duration: 11s; animation-delay: 0.5s; }
-.s8 { left: 75%; font-size: 2rem; animation-duration: 7.5s; animation-delay: 2.5s; }
-.s9 { left: 85%; font-size: 4rem; animation-duration: 13s; animation-delay: 1.5s; filter: blur(1px); }
+.symbol { position: absolute; top: -10%; text-shadow: 0 0 15px var(--blood), 0 0 25px var(--laser); opacity: 0; animation: fall linear infinite; user-select: none; font-weight: bold; }
+/* All suits are RED */
+.symbol.red, .symbol.black { color: var(--laser); text-shadow: 0 0 15px var(--blood), 0 0 30px rgba(255, 0, 51, 0.5); }
+
+/* Positions & Animations */
+.s1 { left: 3%; font-size: 2rem; animation-duration: 8s; }
+.s2 { left: 10%; font-size: 3.5rem; animation-duration: 12s; animation-delay: 1s; }
+.s3 { left: 18%; font-size: 2.5rem; animation-duration: 7s; animation-delay: 3s; }
+.s4 { left: 26%; font-size: 4rem; animation-duration: 14s; animation-delay: 0.5s; filter: blur(1px); }
+.s5 { left: 34%; font-size: 2rem; animation-duration: 9s; animation-delay: 4s; }
+.s6 { left: 42%; font-size: 3rem; animation-duration: 11s; animation-delay: 2s; }
+.s7 { left: 50%; font-size: 2.5rem; animation-duration: 8s; animation-delay: 5s; }
+.s8 { left: 58%; font-size: 3.5rem; animation-duration: 13s; animation-delay: 1.5s; }
+.s9 { left: 66%; font-size: 2rem; animation-duration: 7s; animation-delay: 3.5s; }
+.s10 { left: 74%; font-size: 4rem; animation-duration: 10s; animation-delay: 0s; filter: blur(2px); }
+.s11 { left: 82%; font-size: 2.5rem; animation-duration: 9s; animation-delay: 2.5s; }
+.s12 { left: 90%; font-size: 3rem; animation-duration: 12s; animation-delay: 4.5s; }
 
 @keyframes fall { 0% { transform: translateY(-10vh) rotate(0deg); opacity: 0; } 20% { opacity: 1; } 100% { transform: translateY(110vh) rotate(360deg); opacity: 0; } }
 
@@ -62,7 +82,7 @@ h1, h2, h3, .welcome-text, .section-title, .school-info {
 .embers span:nth-child(1) { left: 10%; animation-duration: 7s; } .embers span:nth-child(2) { left: 20%; animation-duration: 12s; background: var(--gold); } .embers span:nth-child(3) { left: 50%; animation-duration: 9s; } .embers span:nth-child(4) { left: 80%; animation-duration: 14s; }
 @keyframes rise { 0% { transform: translateY(0) scale(1); opacity: 0; } 10% { opacity: 1; } 100% { transform: translateY(-120vh) scale(0); opacity: 0; } }
 
-.scanlines { position: fixed; inset: 0; pointer-events: none; z-index: -5; background: linear-gradient(to bottom, rgba(255,255,255,0) 50%, rgba(0,0,0,0.2) 50%); background-size: 100% 4px; opacity: 0.6; }
+.scanlines { position: fixed; inset: 0; pointer-events: none; z-index: -5; opacity: 0; }
 .vignette { position: fixed; inset: 0; pointer-events: none; z-index: -4; background: radial-gradient(circle, transparent 40%, #000 130%); }
 
 /* --- 3. LANDING PAGE (HOME) - MOVED DOWN --- */
@@ -161,6 +181,123 @@ h1, h2, h3, .welcome-text, .section-title, .school-info {
    5. SHARED COMPONENTS
    ========================================= */
 .main-content { padding: 100px 5%; max-width: 1400px; margin: 0 auto; min-height: 100vh; }
+
+/* Party Number Badge - Realistic Poker Chip Style */
+.party-badge {
+    position: fixed;
+    top: 30px;
+    right: 40px;
+    width: 130px;
+    height: 130px;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
+    /* Poker Chip Design - Realistic */
+    background: 
+        /* Inner circle - solid red */
+        radial-gradient(circle at center, #1a0000 0%, #0a0000 55%, transparent 55%),
+        /* Edge pattern - alternating stripes (like real chips) */
+        conic-gradient(from 0deg, 
+            var(--laser) 0deg 9deg,
+            #fff 9deg 18deg,
+            var(--laser) 18deg 27deg,
+            #fff 27deg 36deg,
+            var(--laser) 36deg 45deg,
+            #fff 45deg 54deg,
+            var(--laser) 54deg 63deg,
+            #fff 63deg 72deg,
+            var(--laser) 72deg 81deg,
+            #fff 81deg 90deg,
+            var(--laser) 90deg 99deg,
+            #fff 99deg 108deg,
+            var(--laser) 108deg 117deg,
+            #fff 117deg 126deg,
+            var(--laser) 126deg 135deg,
+            #fff 135deg 144deg,
+            var(--laser) 144deg 153deg,
+            #fff 153deg 162deg,
+            var(--laser) 162deg 171deg,
+            #fff 171deg 180deg,
+            var(--laser) 180deg 189deg,
+            #fff 189deg 198deg,
+            var(--laser) 198deg 207deg,
+            #fff 207deg 216deg,
+            var(--laser) 216deg 225deg,
+            #fff 225deg 234deg,
+            var(--laser) 234deg 243deg,
+            #fff 243deg 252deg,
+            var(--laser) 252deg 261deg,
+            #fff 261deg 270deg,
+            var(--laser) 270deg 279deg,
+            #fff 279deg 288deg,
+            var(--laser) 288deg 297deg,
+            #fff 297deg 306deg,
+            var(--laser) 306deg 315deg,
+            #fff 315deg 324deg,
+            var(--laser) 324deg 333deg,
+            #fff 333deg 342deg,
+            var(--laser) 342deg 351deg,
+            #fff 351deg 360deg);
+    
+    border-radius: 50%;
+    /* Triple ring border like real chips */
+    border: 3px solid #fff;
+    box-shadow: 
+        /* Outer glow */
+        0 0 25px rgba(255, 0, 51, 0.7),
+        /* Drop shadow */
+        0 6px 20px rgba(0, 0, 0, 0.6),
+        /* Inner shadow for depth */
+        inset 0 0 25px rgba(0, 0, 0, 0.9),
+        /* Inner ring highlight */
+        inset 0 0 0 2px rgba(255, 255, 255, 0.2),
+        inset 0 0 0 5px rgba(0, 0, 0, 0.5);
+    
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+}
+
+.party-badge:hover {
+    transform: scale(1.15) rotate(15deg);
+    box-shadow: 
+        0 0 35px rgba(255, 0, 51, 1),
+        0 8px 25px rgba(0, 0, 0, 0.8),
+        inset 0 0 25px rgba(0, 0, 0, 0.9),
+        inset 0 0 0 2px rgba(255, 255, 255, 0.3),
+        inset 0 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.party-badge .number {
+    font-family: 'Cinzel', serif;
+    font-size: 4.2rem;
+    font-weight: 900;
+    color: #fff;
+    text-shadow: 
+        0 0 15px var(--laser),
+        0 0 25px var(--blood),
+        0 3px 8px rgba(0, 0, 0, 0.9),
+        0 0 2px #000;
+    line-height: 1;
+    z-index: 10;
+    margin-bottom: 2px;
+}
+
+.party-badge .label {
+    font-family: 'Prompt', sans-serif;
+    font-size: 0.65rem;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 700;
+    text-shadow: 0 0 8px #000, 0 1px 3px rgba(0, 0, 0, 0.8);
+    max-width: 80%;
+    text-align: center;
+    line-height: 1.2;
+}
+
 .back-btn {
     position: fixed; top: 30px; left: 40px;
     font-size: 1.2rem; color: #aaa; text-decoration: none;
@@ -197,64 +334,123 @@ h1, h2, h3, .welcome-text, .section-title, .school-info {
 
 .policy-grid {
     display: grid;
-    /* 4 Columns */
-    grid-template-columns: repeat(4, 1fr); 
+    /* 3 Columns */
+    grid-template-columns: repeat(3, 1fr); 
     /* This makes all items in the same row the same height */
     align-items: stretch; 
-    gap: 50px;
+    gap: 40px;
     padding: 5px;
 }
 
 .policy-card {
-    /* 1. SIZE & LAYOUT */
-    height: 100%; /* Fill the grid cell */
-    min-height: 200px; /* Minimum height for uniformity */
+    /* 1. SIZE & LAYOUT - Playing Card Style */
+    height: auto;
+    min-height: 180px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center; /* Center text vertically */
+    justify-content: center;
     
-    /* 2. DESIGN */
-    background: linear-gradient(145deg, #1a0000 0%, #000000 100%);
+    /* 2. DESIGN - Classic Card Look */
+    background: linear-gradient(145deg, #0a0000 0%, #000000 50%, #0a0000 100%);
     border: 3px solid var(--blood);
-    padding: 30px;
+    padding: 40px 20px 40px 20px;
     text-align: center;
     
     /* 3. TEXT */
     color: #e0e0e0;
     font-family: 'Cinzel', serif;
-    font-size: 1.3rem;
+    font-size: 1.1rem;
     font-weight: bold;
     letter-spacing: 1px;
     
     /* 4. ANIMATION */
     cursor: pointer;
-    border-radius: 8px;
+    border-radius: 15px;
     position: relative;
     overflow: hidden;
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    box-shadow: inset 0 0 30px rgba(0,0,0,0.8);
+    box-shadow: 
+        inset 0 0 30px rgba(0,0,0,0.8),
+        0 4px 15px rgba(0, 0, 0, 0.5);
 }
 
-/* Hover Effects (Keep existing) */
+/* Card Corner Number (Top-Left) */
+.policy-card::before {
+    content: attr(data-number);
+    position: absolute;
+    top: 10px;
+    left: 12px;
+    font-family: 'Cinzel', serif;
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: var(--laser);
+    text-shadow: 0 0 10px var(--blood);
+    line-height: 1;
+}
+
+/* Card Suit Symbol (Top-Left under number) */
+.policy-card .card-suit-top {
+    position: absolute;
+    top: 32px;
+    left: 14px;
+    font-size: 1rem;
+    line-height: 1;
+}
+
+/* Card Suit Symbol (Bottom-Right, rotated) */
+.policy-card .card-suit-bottom {
+    position: absolute;
+    bottom: 10px;
+    right: 12px;
+    font-size: 1.5rem;
+    transform: rotate(180deg);
+    line-height: 1;
+}
+
+/* Red suits */
+.policy-card .suit-red { color: var(--laser); }
+/* Black suits */
+.policy-card .suit-black { color: #444; text-shadow: 0 0 5px #000; }
+
+/* Center suit icon (large) */
+.policy-card .card-center-suit {
+    position: absolute;
+    font-size: 4rem;
+    opacity: 0.1;
+    z-index: 0;
+}
+
+/* Hover Effects - Card Flip Feel */
 .policy-card:hover {
-    transform: translateY(-10px);
+    transform: translateY(-15px) rotateX(5deg);
     border-color: var(--laser);
-    background: linear-gradient(145deg, #2a0000 0%, #050000 100%);
+    background: linear-gradient(145deg, #1a0000 0%, #000000 50%, #1a0000 100%);
     color: #fff;
-    box-shadow: 0 10px 30px rgba(255, 0, 51, 0.3);
+    box-shadow: 
+        0 20px 40px rgba(255, 0, 51, 0.4),
+        0 0 20px var(--blood),
+        inset 0 0 30px rgba(138, 0, 0, 0.3);
     text-shadow: 0 0 10px var(--laser);
 }
 
-/* Bottom Bar (Keep existing) */
-.policy-card::after {
-    content: ""; position: absolute; bottom: 0; left: 0;
-    width: 100%; height: 4px; background: var(--laser);
-    box-shadow: 0 0 10px var(--laser);
-    transform: scaleX(0); transform-origin: left;
-    transition: transform 0.4s ease;
+.policy-card:hover::before {
+    color: #fff;
+    text-shadow: 0 0 15px var(--laser);
 }
-.policy-card:hover::after { transform: scaleX(1); }
+
+/* Gold border glow on hover */
+.policy-card:hover .card-suit-top,
+.policy-card:hover .card-suit-bottom {
+    filter: drop-shadow(0 0 5px var(--gold));
+}
+
+/* Policy text container */
+.policy-card .policy-text {
+    position: relative;
+    z-index: 1;
+    padding: 0 15px;
+}
 
 /* Responsive Grid (Keep existing) */
 @media (max-width: 1200px) { .policy-grid { grid-template-columns: repeat(2, 1fr); } }
@@ -267,9 +463,14 @@ h1, h2, h3, .welcome-text, .section-title, .school-info {
 /* 1. THE BACKGROUND OVERLAY (Must exist to show the popup) */
 .modal {
     position: fixed; 
-    inset: 0; /* Full Screen */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100vh;
     background: rgba(0, 0, 0, 0.95); /* Dark background */
-    z-index: 9999; /* On top of everything */
+    z-index: 99999; /* Higher than badge */
     
     /* Flexbox to center the box */
     display: flex; 
@@ -279,13 +480,18 @@ h1, h2, h3, .welcome-text, .section-title, .school-info {
     /* Default State: Hidden */
     opacity: 0; 
     pointer-events: none; 
-    transition: opacity 0.3s ease;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s;
+    
+    /* Prevent body scroll when modal is open */
+    overflow-y: auto;
 }
 
 /* 2. THE ACTIVE STATE (Added by JS when clicked) */
 .modal.show {
     opacity: 1; 
     pointer-events: auto; /* Allow clicking */
+    visibility: visible;
 }
 
 /* 3. THE BIG BOX ITSELF */
@@ -293,6 +499,7 @@ h1, h2, h3, .welcome-text, .section-title, .school-info {
     width: 90%;
     max-width: 1000px; /* HUGE WIDTH */
     min-height: 400px; /* HUGE HEIGHT */
+    max-height: 90vh;
     
     background: #050000;
     border: 2px solid var(--laser);
@@ -300,6 +507,7 @@ h1, h2, h3, .welcome-text, .section-title, .school-info {
     padding: 60px;
     border-radius: 15px;
     position: relative;
+    margin: auto;
     
     /* Center text inside */
     display: flex;
@@ -308,14 +516,17 @@ h1, h2, h3, .welcome-text, .section-title, .school-info {
     align-items: center;
     text-align: center;
     
+    /* Prevent going below viewport */
+    overflow-y: auto;
+    
     /* Animation */
-    transform: scale(0.8);
+    transform: scale(0.8) translateY(50px);
     transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 /* Pop animation when showing */
 .modal.show .modal-box {
-    transform: scale(1);
+    transform: scale(1) translateY(0);
 }
 
 /* 4. TEXT SIZES INSIDE POPUP */
@@ -383,16 +594,86 @@ h1, h2, h3, .welcome-text, .section-title, .school-info {
     grid-template-columns: 400px 1fr;
     gap: 30px;
     background: rgba(5, 0, 0, 0.85);
-    border: 1px solid #333;
+    border: 2px solid #333;
     /* Cyberpunk border effect */
     box-shadow: 0 0 20px rgba(0,0,0,0.8), inset 0 0 50px rgba(138, 0, 0, 0.1);
-    border-radius: 12px;
+    border-radius: 15px;
     margin-bottom: 60px;
     padding: 30px;
     backdrop-filter: blur(10px);
     position: relative;
     overflow: hidden;
 }
+
+/* Leader Rank Badge - Floating */
+.leader-rank-badge {
+    position: absolute;
+    top: -15px;
+    right: 30px;
+    background: linear-gradient(145deg, #1a0000, #000);
+    border: 3px solid var(--laser);
+    border-radius: 10px;
+    padding: 10px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 100;
+    box-shadow: 0 5px 20px rgba(255, 0, 51, 0.5);
+}
+
+.leader-rank-badge .rank-number {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: var(--laser);
+    line-height: 1;
+    text-shadow: 0 0 10px var(--blood);
+}
+
+.leader-rank-badge .rank-suit {
+    font-size: 1.5rem;
+    line-height: 1;
+}
+
+/* Card corners on leader image */
+.card-corner {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 8px;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 5px;
+}
+
+.card-corner.top-left {
+    top: 10px;
+    left: 10px;
+}
+
+.card-corner.bottom-right {
+    bottom: 10px;
+    right: 10px;
+    transform: rotate(180deg);
+}
+
+.corner-rank {
+    font-family: 'Cinzel', serif;
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: var(--laser);
+    line-height: 1;
+    text-shadow: 0 0 5px var(--blood);
+}
+
+.corner-suit {
+    font-size: 1.2rem;
+    line-height: 1;
+}
+
+/* Suit colors */
+.suit-red { color: var(--laser); }
+.suit-black { color: #555; text-shadow: 0 0 3px #000; }
 
 /* Decorative corner accent */
 .leader-block::before {
@@ -537,7 +818,7 @@ h1, h2, h3, .welcome-text, .section-title, .school-info {
     .members-grid { grid-template-columns: repeat(2, 1fr); }
 }
 /* =========================================
-   LOADING SCREEN SYSTEM
+   LOADING SCREEN SYSTEM (SMOOTH TRANSITIONS)
    ========================================= */
 
 /* The Full Screen Overlay */
@@ -550,7 +831,13 @@ h1, h2, h3, .welcome-text, .section-title, .school-info {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    transition: opacity 0.5s ease;
+    opacity: 1;
+    
+    /* Smooth transitions with hardware acceleration */
+    transition: opacity 0.6s cubic-bezier(0.4, 0.0, 0.2, 1);
+    will-change: opacity;
+    transform: translateZ(0); /* Force GPU acceleration */
+    backface-visibility: hidden;
 }
 
 /* Hidden state (fade out) */
@@ -562,7 +849,8 @@ h1, h2, h3, .welcome-text, .section-title, .school-info {
 /* The Loading Spinner/Logo */
 .loader-content {
     text-align: center;
-    animation: pulse-loader 2s infinite;
+    animation: pulse-loader 2s ease-in-out infinite;
+    transform: translateZ(0); /* Hardware acceleration */
 }
 
 .loader-text {
@@ -659,7 +947,6 @@ h1, h2, h3, .welcome-text, .section-title, .school-info {
     /* 1. Policy Grid: Switch from 4 columns to 2 */
     .policy-grid {
         grid-template-columns: repeat(2, 1fr);
-        gap: 30px;
     }
 
     /* 2. Leader Block: Keep side-by-side but smaller image */
@@ -667,514 +954,6 @@ h1, h2, h3, .welcome-text, .section-title, .school-info {
         grid-template-columns: 300px 1fr;
         gap: 20px;
         padding: 20px;
-    }
-
-    /* 3. Landing Logo: Make smaller */
-    .landing-logo {
-        width: 500px;
-    }
-
-    .big-number-two {
-        font-size: 35rem;
-    }
-
-    /* 4. Welcome Text */
-    .welcome-text {
-        font-size: 3rem;
-    }
-
-    /* 5. Menu Cards: Smaller */
-    .menu-card {
-        width: 240px;
-        height: 300px;
-    }
-
-    .menu-card .icon {
-        font-size: 4rem;
-    }
-
-    .menu-card h2 {
-        font-size: 1.6rem;
-    }
-
-    /* 6. Member Grid: 4 columns instead of 5 */
-    .members-grid {
-        grid-template-columns: repeat(4, 1fr);
-    }
-
-    /* 7. Leader Grid: 3 cards per row */
-    .leader-grid {
-        gap: 30px;
-    }
-
-    .card-wrapper {
-        width: 220px;
-        height: 340px;
-    }
-
-    /* 8. Modal Box */
-    .modal-box {
-        padding: 40px;
-    }
-
-    .modal-box h2 {
-        font-size: 2.5rem !important;
-    }
-
-    .modal-box p {
-        font-size: 1.3rem !important;
-    }
-
-    /* 9. Leader Modal */
-    .leader-modal-content {
-        width: 700px;
-    }
-}
-
-/* --- TABLET PORTRAIT / LARGE PHONE (Screens smaller than 768px) --- */
-@media (max-width: 768px) {
-    
-    /* 1. Landing Page Hero */
-    .landing-hero {
-        padding-top: 5vh;
-        padding-left: 10px;
-        padding-right: 10px;
-    }
-
-    .landing-logo {
-        width: 350px;
-    }
-
-    .big-number-two {
-        font-size: 20rem;
-    }
-
-    .welcome-text {
-        font-size: 2.5rem;
-        margin-bottom: 15px;
-    }
-
-    .school-info {
-        font-size: 1rem;
-        letter-spacing: 3px;
-    }
-
-    /* 2. Menu Cards: Stack vertically */
-    .main-menu {
-        flex-direction: column;
-        gap: 20px;
-        margin-top: 30px;
-        align-items: center;
-    }
-
-    .menu-card {
-        width: 90%;
-        max-width: 350px;
-        height: 280px;
-    }
-
-    /* 3. Section Title */
-    .section-title {
-        font-size: 2rem;
-        margin-bottom: 30px;
-    }
-
-    .section {
-        padding: 60px 3%;
-    }
-
-    /* 4. Policy Grid: 1 column */
-    .policy-grid {
-        grid-template-columns: 1fr;
-        gap: 25px;
-    }
-
-    .policy-card {
-        min-height: 150px;
-        font-size: 1.2rem;
-        padding: 25px;
-    }
-
-    /* 5. Leader Cards: 2 per row */
-    .leader-grid {
-        gap: 25px;
-    }
-
-    .card-wrapper {
-        width: 180px;
-        height: 280px;
-    }
-
-    .face-front h3 {
-        font-size: 0.95rem;
-    }
-
-    .face-front p {
-        font-size: 0.8rem;
-    }
-
-    /* 6. Leader Block: Stack vertically */
-    .leader-block {
-        grid-template-columns: 1fr;
-        gap: 20px;
-        padding: 20px;
-    }
-
-    .leader-left {
-        min-height: 350px;
-    }
-
-    .info-box {
-        padding: 10px 15px;
-    }
-
-    .box-value {
-        font-size: 1.1rem;
-    }
-
-    /* 7. Member Grid: 3 columns */
-    .members-grid {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 10px;
-    }
-
-    .member-card {
-        padding: 10px;
-    }
-
-    .m-name {
-        font-size: 0.85rem;
-    }
-
-    /* 8. Modal */
-    .modal-box {
-        width: 95%;
-        padding: 30px 20px;
-        min-height: 300px;
-    }
-
-    .modal-box h2 {
-        font-size: 2rem !important;
-        margin-bottom: 20px !important;
-    }
-
-    .modal-box p {
-        font-size: 1.2rem !important;
-    }
-
-    .close-btn {
-        font-size: 40px;
-        top: 15px;
-        right: 20px;
-    }
-
-    /* 9. Leader Modal */
-    .leader-modal-content {
-        width: 95%;
-    }
-
-    /* 10. Back Button */
-    .back-btn {
-        top: 20px;
-        left: 20px;
-        font-size: 1rem;
-        padding: 8px 15px;
-    }
-
-    /* 11. Work Grid */
-    .work-grid {
-        grid-template-columns: 1fr;
-        gap: 15px;
-    }
-
-    .work-card {
-        min-height: 250px;
-    }
-
-    /* 12. Social Buttons */
-    .social-big-btn {
-        flex-direction: column;
-        text-align: center;
-        padding: 25px;
-    }
-
-    .s-icon {
-        margin-right: 0;
-        margin-bottom: 15px;
-        font-size: 3rem;
-    }
-
-    .s-text h3 {
-        font-size: 1.6rem;
-    }
-
-    .s-text p {
-        font-size: 0.95rem;
-    }
-
-    /* 13. Glass Frame */
-    .glass-frame {
-        padding: 15px;
-        font-size: 1.1rem;
-    }
-}
-
-/* --- MOBILE PHONE (Screens smaller than 480px) --- */
-@media (max-width: 480px) {
-    
-    /* 1. Landing Page */
-    .landing-logo {
-        width: 280px;
-    }
-
-    .big-number-two {
-        font-size: 15rem;
-    }
-
-    .welcome-text {
-        font-size: 2rem;
-        letter-spacing: 1px;
-    }
-
-    .school-info {
-        font-size: 0.9rem;
-        letter-spacing: 2px;
-    }
-
-    /* 2. Menu Cards */
-    .menu-card {
-        width: 95%;
-        height: 260px;
-    }
-
-    .menu-card .icon {
-        font-size: 3.5rem;
-        margin-bottom: 15px;
-    }
-
-    .menu-card h2 {
-        font-size: 1.5rem;
-    }
-
-    .menu-card p {
-        font-size: 0.9rem;
-    }
-
-    /* 3. Section Titles */
-    .section-title {
-        font-size: 1.6rem;
-        margin-bottom: 25px;
-        padding-bottom: 8px;
-    }
-
-    .section {
-        padding: 40px 3%;
-    }
-
-    /* 4. Policy Cards */
-    .policy-card {
-        min-height: 130px;
-        font-size: 1.1rem;
-        padding: 20px;
-    }
-
-    /* 5. Leader Cards: 1 per row on very small screens */
-    .card-wrapper {
-        width: 90%;
-        max-width: 260px;
-        height: 380px;
-        margin: 0 auto;
-    }
-
-    .leader-grid {
-        gap: 20px;
-        justify-content: center;
-    }
-
-    /* 6. Leader Block */
-    .leader-block {
-        padding: 15px;
-        margin-bottom: 40px;
-    }
-
-    .leader-left {
-        min-height: 300px;
-    }
-
-    .info-box {
-        padding: 10px;
-    }
-
-    .box-label {
-        font-size: 0.7rem;
-    }
-
-    .box-value {
-        font-size: 1rem;
-    }
-
-    .position-highlight h2 {
-        font-size: 1.5rem;
-    }
-
-    .social-link {
-        padding: 8px 20px;
-        font-size: 0.85rem;
-    }
-
-    /* 7. Member Grid: 2 columns */
-    .members-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 8px;
-    }
-
-    .member-card {
-        padding: 8px;
-        gap: 8px;
-    }
-
-    .m-num {
-        font-size: 0.85rem;
-        width: 25px;
-    }
-
-    .m-name {
-        font-size: 0.8rem;
-    }
-
-    /* 8. Modal */
-    .modal-box {
-        padding: 25px 15px;
-        min-height: 250px;
-    }
-
-    .modal-box h2 {
-        font-size: 1.6rem !important;
-        margin-bottom: 15px !important;
-    }
-
-    .modal-box p {
-        font-size: 1rem !important;
-        line-height: 1.6 !important;
-    }
-
-    .close-btn {
-        font-size: 35px;
-        top: 10px;
-        right: 15px;
-    }
-
-    /* 9. Leader Modal Content */
-    .leader-modal-content {
-        width: 98%;
-    }
-
-    /* 10. Back Button */
-    .back-btn {
-        top: 15px;
-        left: 15px;
-        font-size: 0.9rem;
-        padding: 8px 12px;
-    }
-
-    /* 11. Work Cards */
-    .work-card .icon {
-        font-size: 3rem;
-    }
-
-    .work-card h3 {
-        font-size: 1.3rem;
-    }
-
-    /* 12. Social Buttons */
-    .social-big-btn {
-        padding: 20px;
-    }
-
-    .s-icon {
-        font-size: 2.5rem;
-        margin-bottom: 12px;
-    }
-
-    .s-text h3 {
-        font-size: 1.4rem;
-    }
-
-    .s-text p {
-        font-size: 0.9rem;
-    }
-
-    /* 13. Main Content */
-    .main-content {
-        padding: 80px 3%;
-    }
-
-    /* 14. Glass Frame */
-    .glass-frame {
-        padding: 15px;
-        font-size: 1rem;
-        line-height: 1.6;
-    }
-
-    /* 15. Glow Button */
-    .glow-btn {
-        padding: 12px 30px;
-        font-size: 1rem;
-    }
-
-    /* 16. Floating Symbols - Reduce size */
-    .symbol {
-        font-size: 1.5rem !important;
-    }
-
-    .s2 { font-size: 2rem !important; }
-    .s4 { font-size: 2.5rem !important; }
-    .s7 { font-size: 2.2rem !important; }
-    .s9 { font-size: 2.5rem !important; }
-}
-
-/* --- EXTRA SMALL DEVICES (Screens smaller than 360px) --- */
-@media (max-width: 360px) {
-    
-    .landing-logo {
-        width: 240px;
-    }
-
-    .big-number-two {
-        font-size: 12rem;
-    }
-
-    .welcome-text {
-        font-size: 1.6rem;
-    }
-
-    .school-info {
-        font-size: 0.8rem;
-    }
-
-    .menu-card {
-        height: 240px;
-    }
-
-    .section-title {
-        font-size: 1.4rem;
-    }
-
-    .card-wrapper {
-        width: 85%;
-        height: 360px;
-    }
-
-    .members-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .modal-box h2 {
-        font-size: 1.4rem !important;
-    }
-
-    .modal-box p {
-        font-size: 0.95rem !important;
     }
 }
 
