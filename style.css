@@ -27,7 +27,6 @@ body {
     opacity: 0;
     transition: opacity 0.6s cubic-bezier(0.4, 0.0, 0.2, 1);
     will-change: opacity;
-    transform: translateZ(0);
     backface-visibility: hidden;
 }
 
@@ -128,7 +127,7 @@ h1, h2, h3, .welcome-text, .section-title, .school-info {
 }
 
 .landing-logo {
-    width: 700px; /* Increased size significantly */
+    width: 820px; /* Increased size */
     filter: drop-shadow(0 0 30px var(--laser));
     animation: float 4s ease-in-out infinite;
     z-index: 2;
@@ -964,7 +963,7 @@ h1, h2, h3, .welcome-text, .section-title, .school-info {
 @media (max-width: 768px) {
     /* Landing Logo */
     .landing-logo {
-        width: 400px;
+        width: 460px;
     }
     
     .welcome-text {
@@ -1067,7 +1066,7 @@ h1, h2, h3, .welcome-text, .section-title, .school-info {
     }
     
     .landing-logo {
-        width: 280px;
+        width: 330px;
     }
     
     .welcome-text {
@@ -1320,7 +1319,7 @@ h1, h2, h3, .welcome-text, .section-title, .school-info {
 /* --- VERY SMALL MOBILE (Max 380px) --- */
 @media (max-width: 380px) {
     .landing-logo {
-        width: 220px;
+        width: 250px;
     }
     
     .welcome-text {
