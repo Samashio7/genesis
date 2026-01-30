@@ -659,6 +659,7 @@ h1, h2, h3, .welcome-text, .section-title, .school-info {
     /* 1. Policy Grid: Switch from 4 columns to 2 */
     .policy-grid {
         grid-template-columns: repeat(2, 1fr);
+        gap: 30px;
     }
 
     /* 2. Leader Block: Keep side-by-side but smaller image */
@@ -666,6 +667,514 @@ h1, h2, h3, .welcome-text, .section-title, .school-info {
         grid-template-columns: 300px 1fr;
         gap: 20px;
         padding: 20px;
+    }
+
+    /* 3. Landing Logo: Make smaller */
+    .landing-logo {
+        width: 500px;
+    }
+
+    .big-number-two {
+        font-size: 35rem;
+    }
+
+    /* 4. Welcome Text */
+    .welcome-text {
+        font-size: 3rem;
+    }
+
+    /* 5. Menu Cards: Smaller */
+    .menu-card {
+        width: 240px;
+        height: 300px;
+    }
+
+    .menu-card .icon {
+        font-size: 4rem;
+    }
+
+    .menu-card h2 {
+        font-size: 1.6rem;
+    }
+
+    /* 6. Member Grid: 4 columns instead of 5 */
+    .members-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    /* 7. Leader Grid: 3 cards per row */
+    .leader-grid {
+        gap: 30px;
+    }
+
+    .card-wrapper {
+        width: 220px;
+        height: 340px;
+    }
+
+    /* 8. Modal Box */
+    .modal-box {
+        padding: 40px;
+    }
+
+    .modal-box h2 {
+        font-size: 2.5rem !important;
+    }
+
+    .modal-box p {
+        font-size: 1.3rem !important;
+    }
+
+    /* 9. Leader Modal */
+    .leader-modal-content {
+        width: 700px;
+    }
+}
+
+/* --- TABLET PORTRAIT / LARGE PHONE (Screens smaller than 768px) --- */
+@media (max-width: 768px) {
+    
+    /* 1. Landing Page Hero */
+    .landing-hero {
+        padding-top: 5vh;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .landing-logo {
+        width: 350px;
+    }
+
+    .big-number-two {
+        font-size: 20rem;
+    }
+
+    .welcome-text {
+        font-size: 2.5rem;
+        margin-bottom: 15px;
+    }
+
+    .school-info {
+        font-size: 1rem;
+        letter-spacing: 3px;
+    }
+
+    /* 2. Menu Cards: Stack vertically */
+    .main-menu {
+        flex-direction: column;
+        gap: 20px;
+        margin-top: 30px;
+        align-items: center;
+    }
+
+    .menu-card {
+        width: 90%;
+        max-width: 350px;
+        height: 280px;
+    }
+
+    /* 3. Section Title */
+    .section-title {
+        font-size: 2rem;
+        margin-bottom: 30px;
+    }
+
+    .section {
+        padding: 60px 3%;
+    }
+
+    /* 4. Policy Grid: 1 column */
+    .policy-grid {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+
+    .policy-card {
+        min-height: 150px;
+        font-size: 1.2rem;
+        padding: 25px;
+    }
+
+    /* 5. Leader Cards: 2 per row */
+    .leader-grid {
+        gap: 25px;
+    }
+
+    .card-wrapper {
+        width: 180px;
+        height: 280px;
+    }
+
+    .face-front h3 {
+        font-size: 0.95rem;
+    }
+
+    .face-front p {
+        font-size: 0.8rem;
+    }
+
+    /* 6. Leader Block: Stack vertically */
+    .leader-block {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        padding: 20px;
+    }
+
+    .leader-left {
+        min-height: 350px;
+    }
+
+    .info-box {
+        padding: 10px 15px;
+    }
+
+    .box-value {
+        font-size: 1.1rem;
+    }
+
+    /* 7. Member Grid: 3 columns */
+    .members-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+    }
+
+    .member-card {
+        padding: 10px;
+    }
+
+    .m-name {
+        font-size: 0.85rem;
+    }
+
+    /* 8. Modal */
+    .modal-box {
+        width: 95%;
+        padding: 30px 20px;
+        min-height: 300px;
+    }
+
+    .modal-box h2 {
+        font-size: 2rem !important;
+        margin-bottom: 20px !important;
+    }
+
+    .modal-box p {
+        font-size: 1.2rem !important;
+    }
+
+    .close-btn {
+        font-size: 40px;
+        top: 15px;
+        right: 20px;
+    }
+
+    /* 9. Leader Modal */
+    .leader-modal-content {
+        width: 95%;
+    }
+
+    /* 10. Back Button */
+    .back-btn {
+        top: 20px;
+        left: 20px;
+        font-size: 1rem;
+        padding: 8px 15px;
+    }
+
+    /* 11. Work Grid */
+    .work-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .work-card {
+        min-height: 250px;
+    }
+
+    /* 12. Social Buttons */
+    .social-big-btn {
+        flex-direction: column;
+        text-align: center;
+        padding: 25px;
+    }
+
+    .s-icon {
+        margin-right: 0;
+        margin-bottom: 15px;
+        font-size: 3rem;
+    }
+
+    .s-text h3 {
+        font-size: 1.6rem;
+    }
+
+    .s-text p {
+        font-size: 0.95rem;
+    }
+
+    /* 13. Glass Frame */
+    .glass-frame {
+        padding: 15px;
+        font-size: 1.1rem;
+    }
+}
+
+/* --- MOBILE PHONE (Screens smaller than 480px) --- */
+@media (max-width: 480px) {
+    
+    /* 1. Landing Page */
+    .landing-logo {
+        width: 280px;
+    }
+
+    .big-number-two {
+        font-size: 15rem;
+    }
+
+    .welcome-text {
+        font-size: 2rem;
+        letter-spacing: 1px;
+    }
+
+    .school-info {
+        font-size: 0.9rem;
+        letter-spacing: 2px;
+    }
+
+    /* 2. Menu Cards */
+    .menu-card {
+        width: 95%;
+        height: 260px;
+    }
+
+    .menu-card .icon {
+        font-size: 3.5rem;
+        margin-bottom: 15px;
+    }
+
+    .menu-card h2 {
+        font-size: 1.5rem;
+    }
+
+    .menu-card p {
+        font-size: 0.9rem;
+    }
+
+    /* 3. Section Titles */
+    .section-title {
+        font-size: 1.6rem;
+        margin-bottom: 25px;
+        padding-bottom: 8px;
+    }
+
+    .section {
+        padding: 40px 3%;
+    }
+
+    /* 4. Policy Cards */
+    .policy-card {
+        min-height: 130px;
+        font-size: 1.1rem;
+        padding: 20px;
+    }
+
+    /* 5. Leader Cards: 1 per row on very small screens */
+    .card-wrapper {
+        width: 90%;
+        max-width: 260px;
+        height: 380px;
+        margin: 0 auto;
+    }
+
+    .leader-grid {
+        gap: 20px;
+        justify-content: center;
+    }
+
+    /* 6. Leader Block */
+    .leader-block {
+        padding: 15px;
+        margin-bottom: 40px;
+    }
+
+    .leader-left {
+        min-height: 300px;
+    }
+
+    .info-box {
+        padding: 10px;
+    }
+
+    .box-label {
+        font-size: 0.7rem;
+    }
+
+    .box-value {
+        font-size: 1rem;
+    }
+
+    .position-highlight h2 {
+        font-size: 1.5rem;
+    }
+
+    .social-link {
+        padding: 8px 20px;
+        font-size: 0.85rem;
+    }
+
+    /* 7. Member Grid: 2 columns */
+    .members-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+    }
+
+    .member-card {
+        padding: 8px;
+        gap: 8px;
+    }
+
+    .m-num {
+        font-size: 0.85rem;
+        width: 25px;
+    }
+
+    .m-name {
+        font-size: 0.8rem;
+    }
+
+    /* 8. Modal */
+    .modal-box {
+        padding: 25px 15px;
+        min-height: 250px;
+    }
+
+    .modal-box h2 {
+        font-size: 1.6rem !important;
+        margin-bottom: 15px !important;
+    }
+
+    .modal-box p {
+        font-size: 1rem !important;
+        line-height: 1.6 !important;
+    }
+
+    .close-btn {
+        font-size: 35px;
+        top: 10px;
+        right: 15px;
+    }
+
+    /* 9. Leader Modal Content */
+    .leader-modal-content {
+        width: 98%;
+    }
+
+    /* 10. Back Button */
+    .back-btn {
+        top: 15px;
+        left: 15px;
+        font-size: 0.9rem;
+        padding: 8px 12px;
+    }
+
+    /* 11. Work Cards */
+    .work-card .icon {
+        font-size: 3rem;
+    }
+
+    .work-card h3 {
+        font-size: 1.3rem;
+    }
+
+    /* 12. Social Buttons */
+    .social-big-btn {
+        padding: 20px;
+    }
+
+    .s-icon {
+        font-size: 2.5rem;
+        margin-bottom: 12px;
+    }
+
+    .s-text h3 {
+        font-size: 1.4rem;
+    }
+
+    .s-text p {
+        font-size: 0.9rem;
+    }
+
+    /* 13. Main Content */
+    .main-content {
+        padding: 80px 3%;
+    }
+
+    /* 14. Glass Frame */
+    .glass-frame {
+        padding: 15px;
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+
+    /* 15. Glow Button */
+    .glow-btn {
+        padding: 12px 30px;
+        font-size: 1rem;
+    }
+
+    /* 16. Floating Symbols - Reduce size */
+    .symbol {
+        font-size: 1.5rem !important;
+    }
+
+    .s2 { font-size: 2rem !important; }
+    .s4 { font-size: 2.5rem !important; }
+    .s7 { font-size: 2.2rem !important; }
+    .s9 { font-size: 2.5rem !important; }
+}
+
+/* --- EXTRA SMALL DEVICES (Screens smaller than 360px) --- */
+@media (max-width: 360px) {
+    
+    .landing-logo {
+        width: 240px;
+    }
+
+    .big-number-two {
+        font-size: 12rem;
+    }
+
+    .welcome-text {
+        font-size: 1.6rem;
+    }
+
+    .school-info {
+        font-size: 0.8rem;
+    }
+
+    .menu-card {
+        height: 240px;
+    }
+
+    .section-title {
+        font-size: 1.4rem;
+    }
+
+    .card-wrapper {
+        width: 85%;
+        height: 360px;
+    }
+
+    .members-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .modal-box h2 {
+        font-size: 1.4rem !important;
+    }
+
+    .modal-box p {
+        font-size: 0.95rem !important;
     }
 }
 
