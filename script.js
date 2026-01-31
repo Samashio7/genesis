@@ -246,36 +246,32 @@ function openPolicy(index) {
     
     // Get current scroll position
     const scrollY = window.scrollY || window.pageYOffset;
+
+    // Store scroll position for restore
+    modal.dataset.scrollY = String(scrollY);
     
     // Show modal
     modal.classList.add('show');
     
-    // Force modal to render at current viewport center
-    modal.style.top = scrollY + 'px';
-    
     // Prevent body scroll when modal is open
     document.body.style.overflow = 'hidden';
-    document.body.style.position = 'fixed';
-    document.body.style.top = `-${scrollY}px`;
-    document.body.style.width = '100%';
 }
 
 function closePopup() { 
     const modal = document.getElementById('infoModal');
     if(modal) {
         modal.classList.remove('show');
-        modal.style.top = '';
     }
     
-    // Restore body scroll and position
-    const scrollY = document.body.style.top;
+    // Restore body scroll
     document.body.style.overflow = '';
-    document.body.style.position = '';
-    document.body.style.top = '';
-    document.body.style.width = '';
     
     // Restore scroll position
-    window.scrollTo(0, parseInt(scrollY || '0') * -1);
+    const scrollY = modal?.dataset?.scrollY || '0';
+    if (modal?.dataset) {
+        delete modal.dataset.scrollY;
+    }
+    window.scrollTo(0, parseInt(scrollY, 10) || 0);
 }
 
 function closeOutside(e) { 
