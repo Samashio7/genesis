@@ -779,11 +779,10 @@ h1, h2, h3, .welcome-text, .section-title, .school-info {
 .social-link.fb:hover { box-shadow: 0 0 15px #1877F2; transform: translateY(-2px); }
 
 
-/* --- MEMBER LIST (4 COLUMNS) --- */
+/* --- MEMBER LIST (RESPONSIVE GRID) --- */
 .members-grid {
     display: grid;
-    /* FORCE 4 COLUMNS */
-    grid-template-columns: repeat(4, 1fr); 
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 15px;
     padding: 20px 0;
 }
@@ -801,7 +800,13 @@ h1, h2, h3, .welcome-text, .section-title, .school-info {
     transform: scale(1.05); z-index: 10;
 }
 .m-num { color: var(--laser); font-weight: bold; font-family: 'Cinzel'; width: 30px; }
-.m-name { color: #fff; font-size: 0.9rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.m-name { color: #fff; font-size: 0.9rem; white-space: normal; overflow-wrap: anywhere; }
+
+@media (hover: none) and (pointer: coarse) {
+    .member-card:hover {
+        transform: none;
+    }
+}
 
 /* =========================================
    LOADING SCREEN SYSTEM (SMOOTH TRANSITIONS)
@@ -1041,9 +1046,9 @@ h1, h2, h3, .welcome-text, .section-title, .school-info {
         font-size: 0.55rem;
     }
     
-    /* Members grid: 3 columns */
+    /* Members grid: responsive columns */
     .members-grid {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
         gap: 10px;
     }
     
@@ -1211,9 +1216,9 @@ h1, h2, h3, .welcome-text, .section-title, .school-info {
         font-size: 1.3rem;
     }
     
-    /* Members grid: 2 columns */
+    /* Members grid: responsive columns */
     .members-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
         gap: 8px;
     }
     
