@@ -779,11 +779,11 @@ h1, h2, h3, .welcome-text, .section-title, .school-info {
 .social-link.fb:hover { box-shadow: 0 0 15px #1877F2; transform: translateY(-2px); }
 
 
-/* --- MEMBER LIST (5 COLUMNS) --- */
+/* --- MEMBER LIST (4 COLUMNS) --- */
 .members-grid {
     display: grid;
-    /* FORCE 5 COLUMNS */
-    grid-template-columns: repeat(5, 1fr); 
+    /* FORCE 4 COLUMNS */
+    grid-template-columns: repeat(4, 1fr); 
     gap: 15px;
     padding: 20px 0;
 }

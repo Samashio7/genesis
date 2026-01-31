@@ -193,8 +193,8 @@ function renderMembers() {
     if(!grid) return;
     
     let html = '';
-    for(let i = 1; i <= 100; i++) {
-        let name = membersData[i-1] ? membersData[i-1] : `สมาชิกพรรค ${i}`;
+    for(let i = 1; i <= membersData.length; i++) {
+        let name = membersData[i-1];
         html += `
         <div class="member-card">
             <div class="m-num">#${i}</div>
