@@ -70,17 +70,52 @@ window.onload = async () => {
 
     // 4. HIDE LOADER (Smooth Fade Out)
     // Minimum loading time ensures smooth transition
-    setTimeout(() => {
+    const introPlayed = runIntroSequence();
+    if (!introPlayed) {
+        setTimeout(() => {
+            const loader = document.getElementById('genesis-loader');
+            if (loader) {
+                loader.classList.add('hidden');
+            }
+            document.body.classList.add('loaded');
+        }, 600); // Slightly longer for smoother feel
+    } else {
         const loader = document.getElementById('genesis-loader');
         if (loader) {
             loader.classList.add('hidden');
         }
         document.body.classList.add('loaded');
-    }, 600); // Slightly longer for smoother feel
+    }
 
     // 5. SETUP LINK INTERCEPTORS (To Save Scroll on Exit)
     setupNavigation();
 };
+
+function runIntroSequence() {
+    const overlay = document.getElementById('intro-overlay');
+    if (!overlay) return false;
+
+    const alreadyShown = sessionStorage.getItem('introShown') === '1';
+    if (alreadyShown) {
+        overlay.remove();
+        return false;
+    }
+
+    sessionStorage.setItem('introShown', '1');
+    document.body.classList.add('intro-active', 'loaded');
+
+    overlay.classList.add('play');
+
+    setTimeout(() => {
+        overlay.classList.add('done');
+        document.body.classList.remove('intro-active');
+        setTimeout(() => {
+            overlay.remove();
+        }, 400);
+    }, 10000);
+
+    return true;
+}
 
 // Fix back/forward cache (bfcache) restoring a faded-out page
 window.addEventListener('pageshow', (event) => {

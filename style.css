@@ -39,6 +39,171 @@ body.fade-out-active {
     pointer-events: none; 
 }
 
+body.intro-active {
+    overflow: hidden;
+}
+
+body.intro-active #genesis-loader {
+    opacity: 0;
+    pointer-events: none;
+}
+
+body.intro-active > *:not(#intro-overlay) {
+    opacity: 0;
+    transition: opacity 0.8s ease;
+}
+
+/* =========================================
+    INTRO OVERLAY (10s ENTRY SEQUENCE)
+   ========================================= */
+.intro-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 3000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+}
+
+.intro-overlay.play {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.intro-overlay.done {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.intro-screen {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    text-align: center;
+    opacity: 0;
+}
+
+.intro-school {
+    background: radial-gradient(circle at top left, #ff6bc1 0%, #ff4aa5 30%, transparent 60%),
+                radial-gradient(circle at bottom right, #2aa7ff 0%, #1f6bff 35%, transparent 65%),
+                linear-gradient(135deg, #ff5cc0 0%, #3d7bff 100%);
+}
+
+.intro-genesis {
+    background: radial-gradient(ellipse at top left, #4a0a0a 0%, transparent 55%),
+                radial-gradient(ellipse at bottom right, #3a0505 0%, transparent 60%),
+                linear-gradient(180deg, #0b0000 0%, #1a0303 40%, #0b0000 100%);
+}
+
+.intro-overlay.play .intro-school {
+    animation: introScreen 5s ease both;
+}
+
+.intro-overlay.play .intro-genesis {
+    animation: introScreen 5s ease both;
+    animation-delay: 5s;
+}
+
+.intro-logo {
+    width: min(65vw, 360px);
+    max-width: 360px;
+    height: auto;
+    filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.35));
+}
+
+.school-logo {
+    width: min(55vw, 300px);
+}
+
+.genesis-logo {
+    width: min(70vw, 420px);
+}
+
+.intro-text {
+    font-family: 'Cinzel', serif;
+    color: #ffffff;
+    letter-spacing: 2px;
+    text-shadow: 0 0 15px rgba(0,0,0,0.5);
+    opacity: 0;
+}
+
+.intro-school-text {
+    font-size: clamp(1rem, 3.5vw, 1.8rem);
+    font-weight: 700;
+}
+
+.intro-genesis-title {
+    font-size: clamp(1.4rem, 4.5vw, 2.6rem);
+    color: var(--laser);
+    text-shadow: 0 0 20px var(--blood);
+}
+
+.intro-genesis-sub {
+    font-size: clamp(1rem, 3.2vw, 1.6rem);
+    color: #ffd7d7;
+}
+
+.intro-school-th {
+    font-size: clamp(1rem, 3.2vw, 1.6rem);
+    font-family: 'Prompt', sans-serif;
+    letter-spacing: 1px;
+}
+
+.intro-genesis-th {
+    font-size: clamp(1rem, 3.2vw, 1.6rem);
+    font-family: 'Prompt', sans-serif;
+    letter-spacing: 1px;
+    color: #f1b7b7;
+}
+
+.intro-overlay.play .intro-school .intro-text {
+    animation: introSlide 5s ease both;
+    animation-delay: 0.4s;
+}
+
+.intro-overlay.play .intro-genesis .intro-text {
+    animation: introSlide 5s ease both;
+    animation-delay: 5.4s;
+}
+
+.intro-overlay.play .intro-school .intro-logo {
+    animation: introFade 5s ease both;
+}
+
+.intro-overlay.play .intro-genesis .intro-logo {
+    animation: introFade 5s ease both;
+    animation-delay: 5s;
+}
+
+@keyframes introScreen {
+    0% { opacity: 0; transform: scale(0.98); }
+    12% { opacity: 1; transform: scale(1); }
+    80% { opacity: 1; }
+    100% { opacity: 0; transform: scale(1.02); }
+}
+
+@keyframes introFade {
+    0% { opacity: 0; transform: translateY(10px) scale(0.98); }
+    20% { opacity: 1; transform: translateY(0) scale(1); }
+    80% { opacity: 1; }
+    100% { opacity: 0; transform: translateY(-6px) scale(1.01); }
+}
+
+@keyframes introSlide {
+    0% { opacity: 0; transform: translateY(20px); }
+    25% { opacity: 1; transform: translateY(0); }
+    75% { opacity: 1; transform: translateY(0); }
+    100% { opacity: 0; transform: translateY(-20px); }
+}
+
 @keyframes void-breathe {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
