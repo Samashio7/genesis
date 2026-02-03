@@ -82,6 +82,30 @@ window.onload = async () => {
     setupNavigation();
 };
 
+// Fix back/forward cache (bfcache) restoring a faded-out page
+window.addEventListener('pageshow', (event) => {
+    if (event.persisted) {
+        // Ensure page is visible after history navigation (back/forward swipe)
+        document.body.classList.remove('fade-out-active');
+        document.body.classList.add('loaded');
+
+        const loader = document.getElementById('genesis-loader');
+        if (loader) {
+            loader.classList.add('hidden');
+        }
+
+        // Restore scroll position if available
+        const currentPath = window.location.pathname;
+        const savedScroll = sessionStorage.getItem(`scrollPos_${currentPath}`);
+        if (savedScroll) {
+            window.scrollTo({
+                top: parseInt(savedScroll, 10) || 0,
+                behavior: 'instant'
+            });
+        }
+    }
+});
+
 /* --- NAVIGATION HANDLER --- */
 function setupNavigation() {
     const links = document.querySelectorAll('a');
