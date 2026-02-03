@@ -35,8 +35,9 @@ async function loadData() {
 
 // 1. Create Loader HTML immediately
 document.write(`
-    <div id="genesis-loader">
+    <div id="genesis-loader" style="opacity:0; pointer-events:none;">
         <div class="loader-content">
+            <img class="loader-logo" src="img/LOGO.real.png" alt="Genesis Logo">
             <div class="loader-spinner"></div>
             <div class="loader-text">SYSTEM INITIALIZING...</div>
         </div>
@@ -78,6 +79,7 @@ window.onload = async () => {
                 loader.classList.add('hidden');
             }
             document.body.classList.add('loaded');
+            document.body.classList.remove('show-loader');
         }, 600); // Slightly longer for smoother feel
     } else {
         const loader = document.getElementById('genesis-loader');
@@ -85,6 +87,7 @@ window.onload = async () => {
             loader.classList.add('hidden');
         }
         document.body.classList.add('loaded');
+        document.body.classList.remove('show-loader');
     }
 
     // 5. SETUP LINK INTERCEPTORS (To Save Scroll on Exit)
@@ -97,6 +100,7 @@ function runIntroSequence() {
 
     const alreadyShown = sessionStorage.getItem('introShown') === '1';
     if (alreadyShown) {
+        document.documentElement.classList.remove('has-intro');
         overlay.remove();
         return false;
     }
@@ -109,6 +113,7 @@ function runIntroSequence() {
     setTimeout(() => {
         overlay.classList.add('done');
         document.body.classList.remove('intro-active');
+        document.documentElement.classList.remove('has-intro');
         setTimeout(() => {
             overlay.remove();
         }, 400);
@@ -128,6 +133,7 @@ window.addEventListener('pageshow', (event) => {
         if (loader) {
             loader.classList.add('hidden');
         }
+        document.body.classList.remove('show-loader');
 
         // Restore scroll position if available
         const currentPath = window.location.pathname;
@@ -159,6 +165,7 @@ function setupNavigation() {
 
                 // B. Fade out body smoothly
                 document.body.classList.add('fade-out-active');
+                document.body.classList.add('show-loader');
 
                 // C. Show Loader with slight delay for smooth transition
                 setTimeout(() => {

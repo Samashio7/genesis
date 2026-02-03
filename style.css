@@ -39,6 +39,29 @@ body.fade-out-active {
     pointer-events: none; 
 }
 
+html.has-intro body {
+    opacity: 1;
+    background: radial-gradient(circle at top left, #ff6bc1 0%, #ff4aa5 30%, transparent 60%),
+                radial-gradient(circle at bottom right, #2aa7ff 0%, #1f6bff 35%, transparent 65%),
+                linear-gradient(135deg, #ff5cc0 0%, #3d7bff 100%);
+    background-color: #ff5cc0;
+    background-attachment: fixed;
+}
+
+html.has-intro body > *:not(#intro-overlay) {
+    opacity: 0;
+}
+
+html.has-intro #intro-overlay {
+    opacity: 1;
+    pointer-events: all;
+}
+
+html.intro-skip #genesis-loader {
+    opacity: 0;
+    pointer-events: none;
+}
+
 body.intro-active {
     overflow: hidden;
 }
@@ -86,9 +109,10 @@ body.intro-active > *:not(#intro-overlay) {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 18px;
+    gap: 12px;
     text-align: center;
     opacity: 0;
+    padding-top: 0;
 }
 
 .intro-school {
@@ -101,6 +125,13 @@ body.intro-active > *:not(#intro-overlay) {
     background: radial-gradient(ellipse at top left, #4a0a0a 0%, transparent 55%),
                 radial-gradient(ellipse at bottom right, #3a0505 0%, transparent 60%),
                 linear-gradient(180deg, #0b0000 0%, #1a0303 40%, #0b0000 100%);
+    padding-top: 0;
+    transform: translateY(-2vh);
+    gap: 4px;
+}
+
+.intro-genesis .intro-text {
+    margin: 0;
 }
 
 .intro-overlay.play .intro-school {
@@ -113,18 +144,18 @@ body.intro-active > *:not(#intro-overlay) {
 }
 
 .intro-logo {
-    width: min(65vw, 360px);
-    max-width: 360px;
+    width: min(80vw, 520px);
+    max-width: 520px;
     height: auto;
     filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.35));
 }
 
 .school-logo {
-    width: min(55vw, 300px);
+    width: min(75vw, 480px);
 }
 
 .genesis-logo {
-    width: min(70vw, 420px);
+    width: min(80vw, 480px);
 }
 
 .intro-text {
@@ -133,6 +164,13 @@ body.intro-active > *:not(#intro-overlay) {
     letter-spacing: 2px;
     text-shadow: 0 0 15px rgba(0,0,0,0.5);
     opacity: 0;
+    max-width: min(92vw, 920px);
+    padding: 0 12px;
+    line-height: 1.3;
+    text-align: center;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+    text-wrap: balance;
 }
 
 .intro-school-text {
@@ -141,14 +179,33 @@ body.intro-active > *:not(#intro-overlay) {
 }
 
 .intro-genesis-title {
-    font-size: clamp(1.4rem, 4.5vw, 2.6rem);
-    color: var(--laser);
+    font-size: clamp(1.8rem, 5.2vw, 3.6rem);
+    color: #ffffff;
     text-shadow: 0 0 20px var(--blood);
+    letter-spacing: 1px;
 }
 
 .intro-genesis-sub {
-    font-size: clamp(1rem, 3.2vw, 1.6rem);
-    color: #ffd7d7;
+    font-size: clamp(0.95rem, 3.2vw, 1.7rem);
+    color: var(--laser);
+    letter-spacing: 1px;
+}
+
+@media (max-width: 520px) {
+    .intro-genesis-title {
+        font-size: clamp(1.4rem, 6.4vw, 2.3rem);
+        letter-spacing: 0.5px;
+    }
+
+    .intro-genesis-sub,
+    .intro-genesis-th {
+        font-size: clamp(0.85rem, 3.8vw, 1.2rem);
+        letter-spacing: 0.5px;
+    }
+
+    .genesis-logo {
+        width: min(85vw, 360px);
+    }
 }
 
 .intro-school-th {
@@ -158,10 +215,13 @@ body.intro-active > *:not(#intro-overlay) {
 }
 
 .intro-genesis-th {
-    font-size: clamp(1rem, 3.2vw, 1.6rem);
+    font-size: clamp(0.9rem, 2.6vw, 1.25rem);
     font-family: 'Prompt', sans-serif;
     letter-spacing: 1px;
     color: #f1b7b7;
+    max-width: min(84vw, 680px);
+    margin: 0 auto;
+    margin-top: -6px;
 }
 
 .intro-overlay.play .intro-school .intro-text {
@@ -260,7 +320,7 @@ h1, h2, h3, .welcome-text, .section-title, .school-info {
     justify-content: flex-start; 
     
     /* CHANGE 2: Push everything down by 15% of the screen height */
-    padding-top: 7vh; 
+    padding-top: 0; 
     
     text-align: center; 
     padding-left: 20px; 
@@ -275,7 +335,8 @@ h1, h2, h3, .welcome-text, .section-title, .school-info {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 20px;
+    margin-top: -28px;
+    margin-bottom: 6px;
 }
 
 /* NEW: The Big Number 2 */
@@ -299,7 +360,7 @@ h1, h2, h3, .welcome-text, .section-title, .school-info {
 }
 @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
 
-.welcome-text { font-size: 4rem; color: #fff; text-shadow: 0 0 20px var(--laser); margin-bottom: 10px; }
+.welcome-text { font-size: 4rem; color: #fff; text-shadow: 0 0 20px var(--laser); margin-top: 4px; margin-bottom: 6px; }
 .school-info { letter-spacing: 5px; color: var(--laser); font-size: 1.2rem; }
 
 .main-menu {
@@ -312,18 +373,58 @@ h1, h2, h3, .welcome-text, .section-title, .school-info {
     border: 2px solid var(--laser);
     display: flex; flex-direction: column; align-items: center; justify-content: center;
     text-decoration: none; color: #fff;
-    border-radius: 15px; transition: 0.3s;
+    border-radius: 15px; transition: transform 0.35s ease, box-shadow 0.35s ease, background 0.35s ease, border-color 0.35s ease;
     backdrop-filter: blur(5px);
     position: relative; overflow: hidden;
 }
 
-.menu-card .icon { font-size: 5rem; margin-bottom: 20px; text-shadow: 0 0 20px var(--blood); transition: 0.3s; }
-.menu-card h2 { font-family: 'Cinzel'; font-size: 2rem; color: var(--laser); margin-bottom: 10px; transition: 0.3s; }
+.menu-card .icon { font-size: 5rem; margin-bottom: 20px; text-shadow: 0 0 16px rgba(255, 215, 0, 0.28), 0 0 10px rgba(138, 0, 0, 0.4); transition: transform 0.5s ease, text-shadow 0.5s ease; will-change: transform; }
+.menu-card h2 { font-family: 'Cinzel'; font-size: 2rem; color: var(--laser); margin-bottom: 10px; transition: color 0.35s ease, text-shadow 0.35s ease; }
 .menu-card p { color: #aaa; font-size: 1rem; }
 
-.menu-card:hover { transform: translateY(-10px) scale(1.05); background: rgba(40, 0, 0, 0.9); box-shadow: 0 0 40px var(--blood); border-color: #fff; z-index: 10; }
-.menu-card:hover .icon { transform: scale(1.2); text-shadow: 0 0 40px var(--gold); }
-.menu-card:hover h2 { color: #fff; text-shadow: 0 0 20px var(--laser); }
+.menu-card:hover { transform: translateY(-6px) scale(1.02); background: rgba(22, 4, 4, 0.9); box-shadow: 0 10px 30px rgba(138, 0, 0, 0.35); border-color: rgba(255, 255, 255, 0.7); z-index: 10; }
+.menu-card:hover .icon { transform: scale(1.03); text-shadow: 0 0 28px rgba(255, 215, 0, 0.55), 0 0 14px rgba(255, 215, 0, 0.35); }
+.menu-card:hover h2 { color: #fff; text-shadow: 0 0 12px var(--laser); }
+
+/* =========================================
+   3.1 RESPONSIVE - LANDING & MENU
+   ========================================= */
+@media (max-width: 1200px) {
+    .landing-logo { width: min(82vw, 720px); }
+    .welcome-text { font-size: clamp(2.8rem, 5vw, 3.6rem); }
+    .school-info { letter-spacing: 3px; font-size: 1.05rem; }
+    .main-menu { gap: 22px; margin-top: 40px; }
+}
+
+@media (max-width: 900px) {
+    .landing-hero { min-height: 88vh; }
+    .logo-container-layered { margin-top: -20px; }
+    .landing-logo { width: min(86vw, 620px); }
+    .welcome-text { font-size: clamp(2.4rem, 5.5vw, 3.2rem); letter-spacing: 1.5px; }
+    .school-info { letter-spacing: 2px; font-size: 1rem; }
+    .menu-card { width: 250px; height: 320px; }
+    .menu-card .icon { font-size: 4.2rem; margin-bottom: 16px; }
+    .menu-card h2 { font-size: 1.7rem; }
+}
+
+@media (max-width: 700px) {
+    .landing-hero { padding-left: 14px; padding-right: 14px; }
+    .logo-container-layered { margin-top: -14px; margin-bottom: 4px; }
+    .landing-logo { width: min(90vw, 520px); }
+    .welcome-text { font-size: clamp(2rem, 7vw, 2.8rem); }
+    .school-info { font-size: 0.95rem; letter-spacing: 1px; }
+    .main-menu { gap: 16px; margin-top: 30px; }
+    .menu-card { width: min(86vw, 320px); height: 300px; }
+}
+
+@media (max-width: 520px) {
+    .landing-hero { min-height: 84vh; }
+    .landing-logo { width: min(92vw, 420px); }
+    .welcome-text { font-size: clamp(1.8rem, 8vw, 2.4rem); }
+    .school-info { font-size: 0.9rem; letter-spacing: 0.6px; }
+    .menu-card { height: 280px; }
+    .menu-card .icon { font-size: 3.8rem; }
+}
 
 /* =========================================
    4. MAIN PAGE CONTENT (Vision & Working)
@@ -981,7 +1082,9 @@ h1, h2, h3, .welcome-text, .section-title, .school-info {
 #genesis-loader {
     position: fixed;
     inset: 0;
-    background: #000;
+    background: radial-gradient(circle at top left, rgba(255, 105, 180, 0.35) 0%, transparent 50%),
+                radial-gradient(circle at bottom right, rgba(79, 172, 254, 0.35) 0%, transparent 55%),
+                linear-gradient(135deg, #ff5cc0 0%, #7aa8ff 55%, #3d7bff 100%);
     z-index: 10000; /* Highest priority */
     display: flex;
     flex-direction: column;
@@ -994,6 +1097,13 @@ h1, h2, h3, .welcome-text, .section-title, .school-info {
     will-change: opacity;
     transform: translateZ(0); /* Force GPU acceleration */
     backface-visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+}
+
+body.show-loader #genesis-loader {
+    opacity: 1;
+    pointer-events: all;
 }
 
 /* Hidden state (fade out) */
@@ -1005,24 +1115,37 @@ h1, h2, h3, .welcome-text, .section-title, .school-info {
 /* The Loading Spinner/Logo */
 .loader-content {
     text-align: center;
-    animation: pulse-loader 2s ease-in-out infinite;
+    padding: 32px 36px;
+    border-radius: 20px;
+    background: rgba(0, 0, 0, 0.45);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6), inset 0 0 20px rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(6px);
+    animation: pulse-loader 2.4s ease-in-out infinite;
     transform: translateZ(0); /* Hardware acceleration */
+}
+
+.loader-logo {
+    width: min(60vw, 180px);
+    height: auto;
+    margin-bottom: 18px;
+    filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.2));
 }
 
 .loader-text {
     font-family: 'Cinzel', serif;
-    color: var(--laser);
-    font-size: 1.5rem;
-    letter-spacing: 5px;
-    margin-top: 20px;
-    text-shadow: 0 0 10px var(--blood);
+    color: #f5e6ff;
+    font-size: 1.2rem;
+    letter-spacing: 3px;
+    margin-top: 16px;
+    text-shadow: 0 0 12px rgba(255, 255, 255, 0.2);
 }
 
 .loader-spinner {
-    width: 50px;
-    height: 50px;
-    border: 3px solid rgba(255, 0, 51, 0.3);
-    border-top: 3px solid var(--laser);
+    width: 48px;
+    height: 48px;
+    border: 3px solid rgba(79, 172, 254, 0.35);
+    border-top: 3px solid rgba(255, 105, 180, 0.8);
     border-radius: 50%;
     animation: spin 1s linear infinite;
     margin: 0 auto;

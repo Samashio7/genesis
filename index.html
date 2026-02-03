@@ -8,6 +8,17 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body class="landing-page">
+<script>
+    try {
+        if (sessionStorage.getItem('introShown') !== '1') {
+            document.documentElement.classList.add('has-intro');
+        } else {
+            document.documentElement.classList.add('intro-skip');
+        }
+    } catch (e) {
+        document.documentElement.classList.add('has-intro');
+    }
+</script>
 
 <div id="intro-overlay" class="intro-overlay" aria-hidden="true">
     <div class="intro-screen intro-school">
