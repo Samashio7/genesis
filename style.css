@@ -733,10 +733,11 @@ h1, h2, h3, .welcome-text, .section-title, .school-info {
     background: rgba(0, 0, 0, 0.95); /* Dark background */
     z-index: 99999; /* Higher than badge */
     
-    /* Flexbox to center the box */
+    /* Flexbox to position the box */
     display: flex; 
-    align-items: center; 
+    align-items: flex-start; 
     justify-content: center;
+    padding: 30px 20px;
     
     /* Default State: Hidden */
     opacity: 0; 
@@ -744,8 +745,9 @@ h1, h2, h3, .welcome-text, .section-title, .school-info {
     visibility: hidden;
     transition: opacity 0.3s ease, visibility 0.3s;
     
-    /* Prevent body scroll when modal is open */
+    /* Allow scrolling on small screens */
     overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 /* 2. THE ACTIVE STATE (Added by JS when clicked) */
@@ -760,7 +762,7 @@ h1, h2, h3, .welcome-text, .section-title, .school-info {
     width: 90%;
     max-width: 1000px; /* HUGE WIDTH */
     min-height: 400px; /* HUGE HEIGHT */
-    max-height: 90vh;
+    max-height: none;
     
     background: #050000;
     border: 2px solid var(--laser);
@@ -773,12 +775,12 @@ h1, h2, h3, .welcome-text, .section-title, .school-info {
     /* Center text inside */
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    justify-content: flex-start;
+    align-items: stretch;
     text-align: center;
     
-    /* Prevent going below viewport */
-    overflow-y: auto;
+    /* Allow full content height; modal overlay will scroll */
+    overflow: visible;
     
     /* Animation */
     transform: scale(0.8) translateY(50px);
@@ -805,6 +807,40 @@ h1, h2, h3, .welcome-text, .section-title, .school-info {
     font-size: 1.6rem !important;
     line-height: 1.8 !important;
     color: #ddd;
+}
+
+/* Policy modal content */
+.policy-modal {
+    padding: 10px 8px;
+    text-align: left;
+}
+
+.policy-modal-title {
+    color: var(--laser);
+    font-family: 'Cinzel', serif;
+    text-shadow: 0 0 20px var(--blood);
+    text-align: center;
+    margin: 0 0 20px;
+    font-size: 2.2rem;
+}
+
+.policy-modal-body {
+    color: #ddd;
+    font-size: 1.25rem;
+    line-height: 1.8;
+}
+
+.policy-modal-body p {
+    margin: 0 0 12px;
+}
+
+.policy-modal-body ul {
+    margin: 0 0 12px 22px;
+    padding: 0;
+}
+
+.policy-modal-body li {
+    margin: 0 0 6px;
 }
 
 /* 5. CLOSE BUTTON */
@@ -1013,6 +1049,34 @@ h1, h2, h3, .welcome-text, .section-title, .school-info {
 .box-value {
     color: #fff; font-size: 1.2rem; font-family: 'Prompt', sans-serif;
     font-weight: 300;
+}
+
+/* Education grid inside leader info */
+.edu-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px 14px;
+}
+
+.edu-item {
+    padding: 10px 12px;
+    border: 1px solid rgba(255, 0, 51, 0.25);
+    background: rgba(10, 0, 0, 0.35);
+    border-radius: 6px;
+}
+
+.edu-title {
+    color: var(--laser);
+    font-size: 0.75rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+    letter-spacing: 0.5px;
+}
+
+.edu-value {
+    color: #fff;
+    font-size: 1rem;
+    line-height: 1.5;
 }
 
 /* --- CONTACT TAGS (IG & FB) --- */
@@ -1232,6 +1296,10 @@ body.show-loader #genesis-loader {
     .leader-left {
         min-height: 350px;
     }
+
+    .edu-grid {
+        grid-template-columns: 1fr;
+    }
     
     /* Party Badge: Smaller */
     .party-badge {
@@ -1300,14 +1368,23 @@ body.show-loader #genesis-loader {
     .modal-box {
         width: 95%;
         padding: 40px 30px;
+        max-height: none;
     }
     
-    .modal-box h2 {
-        font-size: 2rem !important;
+    .policy-modal-title {
+        font-size: 1.8rem;
     }
     
-    .modal-box p {
-        font-size: 1.2rem !important;
+    .policy-modal-body {
+        font-size: 1.1rem;
+    }
+
+    .box-value {
+        font-size: 1.05rem;
+    }
+
+    .info-box {
+        padding: 10px 16px;
     }
     
     /* Back button smaller */
@@ -1347,6 +1424,44 @@ body.show-loader #genesis-loader {
     
     .section-title {
         font-size: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .policy-modal-title {
+        font-size: 1.5rem;
+    }
+
+    .policy-modal-body {
+        font-size: 1rem;
+        line-height: 1.65;
+    }
+
+    .box-value {
+        font-size: 1rem;
+    }
+
+    .edu-value {
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .policy-modal-title {
+        font-size: 1.35rem;
+    }
+
+    .policy-modal-body {
+        font-size: 0.95rem;
+        line-height: 1.6;
+    }
+
+    .box-value {
+        font-size: 0.95rem;
+    }
+
+    .edu-title {
+        font-size: 0.7rem;
     }
 }
 
@@ -1435,19 +1550,19 @@ body.show-loader #genesis-loader {
     /* Modal full screen on mobile */
     .modal-box {
         width: 95%;
-        max-height: 85vh;
+        max-height: none;
         padding: 30px 20px;
         border-radius: 10px;
     }
     
-    .modal-box h2 {
-        font-size: 1.5rem !important;
-        margin-bottom: 20px !important;
+    .policy-modal-title {
+        font-size: 1.4rem;
+        margin-bottom: 16px;
     }
     
-    .modal-box p {
-        font-size: 1rem !important;
-        line-height: 1.6 !important;
+    .policy-modal-body {
+        font-size: 0.98rem;
+        line-height: 1.6;
     }
     
     .close-btn {

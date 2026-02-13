@@ -204,6 +204,8 @@ function renderLeaders() {
         const suit = suits[suitIndex];
         const suitClass = suitClasses[suitIndex];
         
+        const formattedEdu = formatEducation(l.edu);
+        
         html += `
         <div class="leader-block">
             <!-- Card Rank Badge -->
@@ -239,7 +241,7 @@ function renderLeaders() {
                 </div>
                 <div class="info-box">
                     <span class="box-label">ประวัติการศึกษา</span>
-                    <span class="box-value">${l.edu}</span>
+                    <div class="box-value">${formattedEdu}</div>
                 </div>
                 <div class="contact-area">
                     <div class="contact-header">ช่องทางการติดต่อ</div>
@@ -252,6 +254,43 @@ function renderLeaders() {
         </div>`;
     });
     container.innerHTML = html;
+}
+
+function formatEducation(text) {
+    if (!text) return '';
+    const trimmed = text.replace(/\s+/g, ' ').trim();
+    const parts = trimmed.split('จบมัธยมศึกษาตอนต้นจาก');
+    const primary = parts[0]?.replace(/^ประวัติการศึกษา\s*/u, '').replace(/^จบประถมศึกษาปีที่\s*6\s*จาก\s*/u, '').trim() || '';
+    const secondary = parts[1]?.trim() || '';
+
+    const items = [];
+    if (primary) {
+        items.push({
+            title: 'จบประถมศึกษาปีที่6จาก',
+            value: primary
+        });
+    }
+    if (secondary) {
+        items.push({
+            title: 'จบมัธยมศึกษาตอนต้นจาก',
+            value: secondary
+        });
+    }
+
+    if (!items.length) {
+        return trimmed;
+    }
+
+    return `
+        <div class="edu-grid">
+            ${items.map(item => `
+                <div class="edu-item">
+                    <div class="edu-title">${item.title}</div>
+                    <div class="edu-value">${item.value}</div>
+                </div>
+            `).join('')}
+        </div>
+    `;
 }
 
 function renderMembers() {
@@ -307,9 +346,9 @@ function openPolicy(index) {
     const formattedDescription = formatPolicyDescription(p.d);
     
     body.innerHTML = `
-        <div style="padding: 40px; text-align: center;">
-            <h2 style="color:var(--laser); font-family:'Cinzel'; margin-bottom:20px; font-size:2rem;">${p.t}</h2>
-            <div style="font-size:1.3rem; line-height:1.8; color:#ddd; text-align:left;">${formattedDescription}</div>
+        <div class="policy-modal">
+            <h2 class="policy-modal-title">${p.t}</h2>
+            <div class="policy-modal-body">${formattedDescription}</div>
         </div>`;
     
     // Get current scroll position
