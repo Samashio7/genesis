@@ -91,15 +91,15 @@ function runIntroSequence() {
     const overlay = document.getElementById('intro-overlay');
     if (!overlay) return false;
 
-    const alreadyShown = localStorage.getItem('introShown') === '1';
+    const alreadyShown = sessionStorage.getItem('introShown') === '1';
     if (alreadyShown) {
         document.documentElement.classList.remove('has-intro');
         overlay.remove();
         return false;
     }
 
-    // Mark as shown for next time
-    localStorage.setItem('introShown', '1');
+    // Mark as shown for this session
+    sessionStorage.setItem('introShown', '1');
     
     // Body is already visible via has-intro CSS (opacity:1, no transition)
     document.body.classList.add('intro-active');
