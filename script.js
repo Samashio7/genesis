@@ -33,61 +33,54 @@ async function loadData() {
    CORE LOGIC (LOADING & SCROLL)
    ========================================= */
 
-// 1. Create Loader HTML immediately
-document.write(`
-    <div id="genesis-loader" style="opacity:0; pointer-events:none;">
-        <div class="loader-content">
-            <img class="loader-logo" src="img/LOGO.real.png" alt="Genesis Logo">
-            <div class="loader-spinner"></div>
-            <div class="loader-text">SYSTEM INITIALIZING...</div>
-        </div>
-    </div>
-`);
+const FADE_DURATION = 1000;
 
 window.onload = async () => {
+    if ('scrollRestoration' in history) {
+        history.scrollRestoration = 'manual';
+    }
     
-    // 1. LOAD DATA FROM JSON FILES FIRST
+    // 1. START INTRO IMMEDIATELY (before data loading)
+    const introPlayed = runIntroSequence();
+    
+    // 2. LOAD DATA FROM JSON FILES (can happen while intro plays)
     await loadData();
     
-    // 2. RENDER CONTENT AFTER DATA IS LOADED
+    // 3. RENDER CONTENT AFTER DATA IS LOADED
     renderLeaders();
     renderMembers();
     renderPolicies();
 
-    // 3. RESTORE SCROLL POSITION
+    // 4. RESTORE SCROLL POSITION
     // We do this AFTER rendering so the page is long enough to scroll
     const currentPath = window.location.pathname;
     const savedScroll = sessionStorage.getItem(`scrollPos_${currentPath}`);
     
+    const showPage = () => {
+        if (introPlayed) {
+            // Intro is handling visibility, skip normal fade-in
+            return;
+        }
+        // Force fade-in to trigger after first paint
+        document.body.classList.remove('loaded');
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                document.body.classList.add('loaded');
+            });
+        });
+    };
+
     if (savedScroll) {
-        // Delay to ensure smooth scroll restoration
+        // Restore scroll before showing page to avoid jump
         setTimeout(() => {
             window.scrollTo({
-                top: parseInt(savedScroll),
+                top: parseInt(savedScroll, 10) || 0,
                 behavior: 'instant'
             });
-        }, 50);
-    }
-
-    // 4. HIDE LOADER (Smooth Fade Out)
-    // Minimum loading time ensures smooth transition
-    const introPlayed = runIntroSequence();
-    if (!introPlayed) {
-        setTimeout(() => {
-            const loader = document.getElementById('genesis-loader');
-            if (loader) {
-                loader.classList.add('hidden');
-            }
-            document.body.classList.add('loaded');
-            document.body.classList.remove('show-loader');
-        }, 600); // Slightly longer for smoother feel
+            setTimeout(showPage, 0);
+        }, 0);
     } else {
-        const loader = document.getElementById('genesis-loader');
-        if (loader) {
-            loader.classList.add('hidden');
-        }
-        document.body.classList.add('loaded');
-        document.body.classList.remove('show-loader');
+        showPage();
     }
 
     // 5. SETUP LINK INTERCEPTORS (To Save Scroll on Exit)
@@ -98,25 +91,43 @@ function runIntroSequence() {
     const overlay = document.getElementById('intro-overlay');
     if (!overlay) return false;
 
-    const alreadyShown = sessionStorage.getItem('introShown') === '1';
+    const alreadyShown = localStorage.getItem('introShown') === '1';
     if (alreadyShown) {
         document.documentElement.classList.remove('has-intro');
         overlay.remove();
         return false;
     }
 
-    sessionStorage.setItem('introShown', '1');
-    document.body.classList.add('intro-active', 'loaded');
+    // Mark as shown for next time
+    localStorage.setItem('introShown', '1');
+    
+    // Body is already visible via has-intro CSS (opacity:1, no transition)
+    document.body.classList.add('intro-active');
 
+    // Start the intro animations
     overlay.classList.add('play');
 
+    // After 10s intro finishes, transition to normal page
     setTimeout(() => {
+        // Fade out the overlay
         overlay.classList.add('done');
         document.body.classList.remove('intro-active');
+        
+        // Remove has-intro and switch to normal fade system
+        // 1. Keep body visible by adding loaded class first
+        document.body.classList.add('loaded');
+        // 2. Disable transition momentarily so removing has-intro doesn't cause a flash
+        document.body.style.transition = 'none';
         document.documentElement.classList.remove('has-intro');
+        // 3. Force reflow so the browser applies the no-transition state
+        document.body.offsetHeight;
+        // 4. Re-enable transitions for future fade-outs
+        document.body.style.transition = '';
+        
+        // Clean up overlay after fade
         setTimeout(() => {
             overlay.remove();
-        }, 400);
+        }, 500);
     }, 10000);
 
     return true;
@@ -127,13 +138,12 @@ window.addEventListener('pageshow', (event) => {
     if (event.persisted) {
         // Ensure page is visible after history navigation (back/forward swipe)
         document.body.classList.remove('fade-out-active');
-        document.body.classList.add('loaded');
-
-        const loader = document.getElementById('genesis-loader');
-        if (loader) {
-            loader.classList.add('hidden');
-        }
-        document.body.classList.remove('show-loader');
+        document.body.classList.remove('loaded');
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                document.body.classList.add('loaded');
+            });
+        });
 
         // Restore scroll position if available
         const currentPath = window.location.pathname;
@@ -165,20 +175,11 @@ function setupNavigation() {
 
                 // B. Fade out body smoothly
                 document.body.classList.add('fade-out-active');
-                document.body.classList.add('show-loader');
 
-                // C. Show Loader with slight delay for smooth transition
-                setTimeout(() => {
-                    const loader = document.getElementById('genesis-loader');
-                    if (loader) {
-                        loader.classList.remove('hidden');
-                    }
-                }, 200);
-
-                // D. Navigate to new page after smooth fade
+                // C. Navigate after fade so scroll save has time
                 setTimeout(() => {
                     window.location.href = target;
-                }, 600); // Increased for smoother transition
+                }, FADE_DURATION);
             }
         });
     });
@@ -366,18 +367,18 @@ function openPolicy(index) {
 
 function closePopup() { 
     const modal = document.getElementById('infoModal');
-    if(modal) {
-        modal.classList.remove('show');
-    }
+    if(!modal) return;
+    
+    // Get scroll position before removing show class
+    const scrollY = modal.dataset.scrollY || '0';
+    delete modal.dataset.scrollY;
+    
+    modal.classList.remove('show');
     
     // Restore body scroll
     document.body.style.overflow = '';
     
     // Restore scroll position
-    const scrollY = modal?.dataset?.scrollY || '0';
-    if (modal?.dataset) {
-        delete modal.dataset.scrollY;
-    }
     window.scrollTo(0, parseInt(scrollY, 10) || 0);
 }
 
