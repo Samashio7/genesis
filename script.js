@@ -303,11 +303,13 @@ function openPolicy(index) {
     const body = document.getElementById('modalBody');
     if(!modal || !body) return;
     const p = policies[index];
+
+    const formattedDescription = formatPolicyDescription(p.d);
     
     body.innerHTML = `
         <div style="padding: 40px; text-align: center;">
             <h2 style="color:var(--laser); font-family:'Cinzel'; margin-bottom:20px; font-size:2rem;">${p.t}</h2>
-            <p style="font-size:1.3rem; line-height:1.8; color:#ddd;">${p.d}</p>
+            <div style="font-size:1.3rem; line-height:1.8; color:#ddd; text-align:left;">${formattedDescription}</div>
         </div>`;
     
     // Get current scroll position
@@ -344,4 +346,41 @@ function closeOutside(e) {
     if(e.target.id === 'infoModal') {
         closePopup();
     }
+}
+
+function formatPolicyDescription(text) {
+    if (!text) return '';
+    const lines = text.split('\n');
+    let html = '';
+    let inList = false;
+
+    const closeList = () => {
+        if (inList) {
+            html += '</ul>';
+            inList = false;
+        }
+    };
+
+    lines.forEach((rawLine) => {
+        const line = rawLine.trim();
+        if (!line) {
+            closeList();
+            html += '<div style="height:12px;"></div>';
+            return;
+        }
+
+        if (line.startsWith('- ')) {
+            if (!inList) {
+                html += '<ul style="margin:0 0 12px 22px; text-align:left;">';
+                inList = true;
+            }
+            html += `<li>${line.slice(2)}</li>`;
+        } else {
+            closeList();
+            html += `<p style="margin:0 0 12px;">${line}</p>`;
+        }
+    });
+
+    closeList();
+    return html;
 }
