@@ -723,9 +723,10 @@ h1, h2, h3, .welcome-text, .section-title, .school-info {
     right: 0;
     bottom: 0;
     width: 100%;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.95); /* Dark background */
-    z-index: 99999; /* Higher than badge */
+    height: 100%;
+    height: 100dvh; /* Dynamic viewport height for mobile browsers */
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 99999;
     
     /* Flexbox to position the box */
     display: flex; 
@@ -742,6 +743,7 @@ h1, h2, h3, .welcome-text, .section-title, .school-info {
     /* Allow scrolling on small screens */
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
 }
 
 /* 2. THE ACTIVE STATE (Added by JS when clicked) */
@@ -761,10 +763,11 @@ h1, h2, h3, .welcome-text, .section-title, .school-info {
     background: #050000;
     border: 2px solid var(--laser);
     box-shadow: 0 0 50px var(--blood);
-    padding: 60px;
+    padding: 40px;
     border-radius: 15px;
     position: relative;
-    margin: auto;
+    margin: 30px auto;
+    flex-shrink: 0;
     
     /* Center text inside */
     display: flex;
@@ -787,19 +790,17 @@ h1, h2, h3, .welcome-text, .section-title, .school-info {
 }
 
 /* 4. TEXT SIZES INSIDE POPUP */
-/* Force the title to be big */
 .modal-box h2 {
-    font-size: 3rem !important; 
-    margin-bottom: 30px !important;
+    font-size: 1.8rem;
+    margin-bottom: 20px;
     color: var(--laser);
     font-family: 'Cinzel', serif;
     text-shadow: 0 0 20px var(--blood);
 }
 
-/* Force the description to be big */
 .modal-box p {
-    font-size: 1.6rem !important;
-    line-height: 1.8 !important;
+    font-size: 1.05rem;
+    line-height: 1.75;
     color: #ddd;
 }
 
@@ -815,13 +816,13 @@ h1, h2, h3, .welcome-text, .section-title, .school-info {
     text-shadow: 0 0 20px var(--blood);
     text-align: center;
     margin: 0 0 20px;
-    font-size: 2.2rem;
+    font-size: 1.6rem;
 }
 
 .policy-modal-body {
     color: #ddd;
-    font-size: 1.25rem;
-    line-height: 1.8;
+    font-size: 1.05rem;
+    line-height: 1.75;
 }
 
 .policy-modal-body p {
@@ -840,9 +841,9 @@ h1, h2, h3, .welcome-text, .section-title, .school-info {
 /* 5. CLOSE BUTTON */
 .close-btn {
     position: absolute; 
-    top: 20px; 
-    right: 30px;
-    font-size: 50px; 
+    top: 15px; 
+    right: 20px;
+    font-size: 32px; 
     cursor: pointer; 
     color: var(--laser);
     transition: 0.3s;
@@ -1289,11 +1290,11 @@ h1, h2, h3, .welcome-text, .section-title, .school-info {
     }
     
     .policy-modal-title {
-        font-size: 1.8rem;
+        font-size: 1.4rem;
     }
     
     .policy-modal-body {
-        font-size: 1.1rem;
+        font-size: 1rem;
     }
 
     .box-value {
@@ -1345,11 +1346,11 @@ h1, h2, h3, .welcome-text, .section-title, .school-info {
 
     /* Policy modal responsive */
     .policy-modal-title {
-        font-size: 1.5rem;
+        font-size: 1.3rem;
     }
 
     .policy-modal-body {
-        font-size: 1rem;
+        font-size: 0.95rem;
         line-height: 1.65;
     }
 
@@ -1364,11 +1365,11 @@ h1, h2, h3, .welcome-text, .section-title, .school-info {
 
 @media (max-width: 480px) {
     .policy-modal-title {
-        font-size: 1.35rem;
+        font-size: 1.2rem;
     }
 
     .policy-modal-body {
-        font-size: 0.95rem;
+        font-size: 0.9rem;
         line-height: 1.6;
     }
 
@@ -1472,17 +1473,17 @@ h1, h2, h3, .welcome-text, .section-title, .school-info {
     }
     
     .policy-modal-title {
-        font-size: 1.4rem;
-        margin-bottom: 16px;
+        font-size: 1.2rem;
+        margin-bottom: 14px;
     }
     
     .policy-modal-body {
-        font-size: 0.98rem;
+        font-size: 0.9rem;
         line-height: 1.6;
     }
     
     .close-btn {
-        font-size: 35px;
+        font-size: 28px;
         top: 10px;
         right: 15px;
     }
@@ -1666,11 +1667,11 @@ h1, h2, h3, .welcome-text, .section-title, .school-info {
     }
     
     .modal-box h2 {
-        font-size: 1.3rem !important;
+        font-size: 1.1rem;
     }
     
     .modal-box p {
-        font-size: 0.9rem !important;
+        font-size: 0.85rem;
     }
 }
 
